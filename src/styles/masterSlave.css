@@ -1,0 +1,35 @@
+/* 主从明细表单样式 */
+.detail_toolbar{
+    float: right;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    padding-right: 10px;
+}
+.detail{
+    margin: 5px 0 5px 0;
+    border: 1px solid #ccc;
+    position: relative;
+}
+.detail_title{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+/* 验证提示信息 */
+.is-danger{
+    color: #F56C6C;
+    font-size: 12px;
+    line-height: 1;
+    padding-top: 4px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+}
+.error input{
+    border-color: #F56C6C;
+}
+.check::before{
+    content: '*';
+    color: #F56C6C;
+    margin-right: 4px;
+}
