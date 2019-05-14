@@ -3,7 +3,7 @@ import request from '@/utils/request'
 // 获取列表
 export function getList(currentPage,pageSize,orders,filters){
     return request({
-        url: '/evaluatePlan/getEvaluatePlanList',
+        url: '/evaluatePlan/gets',
         data:{
             currentPage,
             pageSize,
@@ -17,7 +17,7 @@ export function getList(currentPage,pageSize,orders,filters){
 //提交
 export function save(data){
     return request({
-        url: '/evaluatePlan/saveEvaluatePlan',
+        url: '/evaluatePlan',
         data:JSON.stringify(data),
         method: 'POST',
         transformRequest: [(data) => {
@@ -32,31 +32,25 @@ export function save(data){
 // 获取单个
 export function get(pkid){
     return request({
-        url: '/evaluatePlan/getEvaluatePlanByPkid',
-        data:{
-            pkid
-        },
-        method: 'POST'
+        url: '/evaluatePlan/get/'+pkid,
+        method: 'GET'
     })
 }
 
 // 删除
 export function deleted(pkid){
     return request({
-        url: '/evaluatePlan/deleteEvaluatePlan',
-        data:{
-            pkid
-        },
-        method: 'POST'
+        url: '/evaluatePlan/delete/'+pkid,
+        method: 'DELETE'
     })
 }
 // 完成计划
 export function complete(pkid){
     return request({
-        url: '/evaluatePlan/completeEvaluatePlan',
-        data:{
+        url: '/evaluatePlan/complete',
+        params:{
             pkid
         },
-        method: 'POST'
+        method: 'GET'
     })
 }

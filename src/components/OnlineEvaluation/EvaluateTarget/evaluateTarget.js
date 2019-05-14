@@ -2,7 +2,7 @@ import request from '@/utils/request'
 /* 主表接口 */
 export function getList(currentPage,pageSize,orders,filters){
     return request({
-        url: '/evaluateTarget/getEvaluateTargetList',
+        url: '/evaluateTarget/gets',
         data:{
             currentPage,
             pageSize,
@@ -15,7 +15,7 @@ export function getList(currentPage,pageSize,orders,filters){
 
 export function save(data){
     return request({
-        url: '/evaluateTarget/saveEvaluateTarget',
+        url: '/evaluateTarget',
         data:JSON.stringify(data),
         method: 'POST',
         transformRequest: [(data) => {
@@ -29,31 +29,25 @@ export function save(data){
 
 export function get(pkid){
     return request({
-        url: '/evaluateTarget/getEvaluateTargetByPkid',
-        data:{
-            pkid
-        },
-        method: 'POST'
+        url: '/evaluateTarget/get/'+pkid,
+        method: 'GET'
     })
 }
 
 export function deleted(pkid){
     return request({
-        url: '/evaluateTarget/deleteEvaluateTarget',
-        data:{
-            pkid
-        },
-        method: 'POST'
+        url: '/evaluateTarget/delete/'+pkid,
+        method: 'DELETE'
     })
 }
 
 export function getEvaluateTargetByEvaluKind(evaluKind){
     return request({
-        url: '/evaluateTarget/selectEvaluateTarget',
-        data:{
+        url: '/evaluateTarget/getByEvalukind',
+        params:{
             evaluKind
         },
-        method: 'POST'
+        method: 'GET'
     })
 }
 

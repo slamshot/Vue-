@@ -2,7 +2,7 @@ import request from '@/utils/request'
 /* 主表接口 */
 export function getList(currentPage,pageSize,orders,filters){
     return request({
-        url: '/evaluateClient/getEvaluateClientList',
+        url: '/evaluateClient/gets',
         data:{
             currentPage,
             pageSize,
@@ -15,7 +15,7 @@ export function getList(currentPage,pageSize,orders,filters){
 
 export function save(data){
     return request({
-        url: '/evaluateClient/saveEvaluateClient',
+        url: '/evaluateClient',
         data:JSON.stringify(data),
         method: 'POST',
         transformRequest: [(data) => {
@@ -29,21 +29,15 @@ export function save(data){
 
 export function get(id){
     return request({
-        url: '/evaluateClient/getEvaluateClientById',
-        data:{
-            id
-        },
-        method: 'POST'
+        url: '/evaluateClient/get/'+id,
+        method: 'GET'
     })
 }
 
 export function deleted(id){
     return request({
-        url: '/evaluateClient/deleteEvaluateClient',
-        data:{
-            id
-        },
-        method: 'POST'
+        url: '/evaluateClient/delete/'+id,
+        method: 'DELETE'
     })
 }
 
@@ -53,10 +47,10 @@ export function deleted(id){
  */
 export function getCurrentEvaluate(evaluKind){
     return request({
-        url: '/evaluatePlan/getCurrentEvaluate',
-        data:{
+        url: '/evaluatePlan/current',
+        params:{
             evaluKind:'内部客户满意度评测'
         },
-        method: 'POST'
+        method: 'GET'
     })
 }

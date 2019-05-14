@@ -2,6 +2,7 @@
     <div id="evaluateClientUser" class="content-height">
         <z-table ref="table" :tableColumnConfig=tableColumnConfig :toolBarConfig=toolBarConfig
         :tableBaseConfig=tableBaseConfig></z-table>
+        <router-view></router-view>
     </div>
 </template>
 <script>
@@ -98,7 +99,16 @@ export default {
                     text:"状态",
                     align:"center",
                     width:60,
-                    sortable:true
+                    sortable:true,
+                    formatter:function(row,column){
+                        if(row.State=='start'){
+                            return '代填'
+                        }else if(row.State=='finish'){
+                            return  '完成'
+                        }else{
+                            return '委托'
+                        }
+                    }
                 },
             ],
             // 工具栏配置
@@ -122,8 +132,23 @@ export default {
                             id:"fill",
                             text:"填写",
                             icon:"el-icon-edit",
+                            // disabled:!row.state=='start',
                             click:(row) => {
-                                //this.deleteButtonClick(row[key],row.state);
+                                console.log(row);
+                                
+                                this.$router.push(
+                                    {
+                                        name:'evaluateClientSec',
+                                        query:{
+                                            EvaluKind:row.EvaluKind,
+                                            EvaluateTname:row.EvaluateTname,
+                                            StartDate:row.StartDate,
+                                            state:'add',
+                                            id:row.EvaluateId,
+                                            EvaluateListPKID:row.EvaluateListPKID,
+                                        }
+                                    }
+                                ); 
                             }
                         },
                         {
@@ -132,6 +157,7 @@ export default {
                             icon:"el-icon-caret-right",
                             click:(row) => {
                                 //this.viewButtonClick(row[key],row.state);
+                                this.$router.push({name:'evaluateConsign',query:{PlanName:row.PlanName}}); 
                             }
                         },
                         {
@@ -139,7 +165,17 @@ export default {
                             text:"查看",
                             icon:"el-icon-view",
                             click:(row) => {
-                                this.viewButtonClick(row[key],row.state);
+                                this.$router.push(
+                                    {
+                                        name:'evaluateClientSec',
+                                        query:{
+                                            EvaluKind:row.EvaluKind,
+                                            EvaluateTname:row.EvaluateTname,
+                                            StartDate:row.StartDate,
+                                            state:'look'
+                                        }
+                                    }
+                                ); 
                             }
                         }
                     ],

@@ -3,7 +3,7 @@ import request from '@/utils/request'
 /* 主表接口 */
 export function getList(currentPage,pageSize,orders,filters){
     return request({
-        url: '/evaluateModel/getEvaluateModelList',
+        url: '/evaluateModel/gets',
         data:{
             currentPage,
             pageSize,
@@ -30,20 +30,14 @@ export function save(data){
 
 export function get(pkid){
     return request({
-        url: '/evaluateModel/getEvaluateModelByPkid',
-        data:{
-            pkid
-        },
-        method: 'POST'
+        url: '/evaluateModel/get/'+pkid,
+        method: 'GET'
     })
 }
 
 export function deleted(pkid){
     return request({
-        url: '/evaluateModel/deleteEvaluateModel',
-        data:{
-            pkid
-        },
-        method: 'POST'
+        url: '/evaluateModel/delete/'+pkid,
+        method: 'DELETE'
     })
 }

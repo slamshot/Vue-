@@ -91,10 +91,17 @@ export default {
                     size:this.pageSize
                 },
                 method: 'GET',
+                headers: {
+                    'JSESSIONID':'76D46FBEBA9A43A3A64DBF91BDE2A4D0',
+                    'io':'vEHvnBXkyOqnXUmhAAQY'
+                }
             }
             request(requestParams).then((res) => {
-                this.tableData = res.data;
-                this.total = res.data.length;
+                if(res.status == 200){
+                    this.tableData = res.data;
+                    this.total = res.data.length;
+                }
+                
             });
             // let data = [
             //     {
