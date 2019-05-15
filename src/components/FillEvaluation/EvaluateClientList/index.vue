@@ -91,7 +91,9 @@ export default {
                     width:80,
                     sortable:true,
                     formatter:function(row,column){
-                        return formatDate(row.FinishDate);
+                        if(row.FinishDate != null){
+                            return formatDate(row.FinishDate);
+                        }
                     }
                 },
                 {
@@ -102,7 +104,7 @@ export default {
                     sortable:true,
                     formatter:function(row,column){
                         if(row.State=='start'){
-                            return '代填'
+                            return '待填'
                         }else if(row.State=='finish'){
                             return  '完成'
                         }else{
