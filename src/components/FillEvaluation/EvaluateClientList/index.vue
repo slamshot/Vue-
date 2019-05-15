@@ -135,20 +135,26 @@ export default {
                             // disabled:!row.state=='start',
                             click:(row) => {
                                 console.log(row);
-                                
-                                this.$router.push(
-                                    {
-                                        name:'evaluateClientSec',
-                                        query:{
-                                            EvaluKind:row.EvaluKind,
-                                            EvaluateTname:row.EvaluateTname,
-                                            StartDate:row.StartDate,
-                                            state:'add',
-                                            id:row.EvaluateId,
-                                            EvaluateListPKID:row.EvaluateListPKID,
+                                if(row.State!='start'){
+                                    this.$message({
+                                        message: '该条目已填写完成',
+                                        type: 'warning'
+                                    });
+                                }else{
+                                    this.$router.push(
+                                        {
+                                            name:'evaluateClientSec',
+                                            query:{
+                                                EvaluKind:row.EvaluKind,
+                                                EvaluateTname:row.EvaluateTname,
+                                                StartDate:row.StartDate,
+                                                state:'add',
+                                                id:row.EvaluateId,
+                                                EvaluateListPKID:row.EvaluateListPKID,
+                                            }
                                         }
-                                    }
-                                ); 
+                                    ); 
+                                }
                             }
                         },
                         {
@@ -172,7 +178,9 @@ export default {
                                             EvaluKind:row.EvaluKind,
                                             EvaluateTname:row.EvaluateTname,
                                             StartDate:row.StartDate,
-                                            state:'look'
+                                            state:'look',
+                                            id:row.EvaluateId,
+                                            EvaluateListPKID:row.EvaluateListPKID,
                                         }
                                     }
                                 ); 
@@ -239,7 +247,7 @@ export default {
         }
     },
     created:function(){// 组件创建后
-       
+       console.log(this.$store.state.userInfo);
     },
     mounted:function(){// 组件加载完成
         // DOTO

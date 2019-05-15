@@ -10,7 +10,7 @@ export function evaluateContent(id){
     })
 }
 
-// 提交
+// state:提交0,暂存1
 export function saveFillContent(data){
     return request({
         url: '/evaluateClientList/saveFillContent',
@@ -22,5 +22,24 @@ export function saveFillContent(data){
         headers: {
             'Content-Type': 'application/json;charset=UTF-8'
         }
+    })
+}
+
+// 查看，获取填写内容
+export function getFillContent(id){
+    return request({
+        url: '/evaluateClientList/getFillContent',
+        method: 'GET',
+        params:{
+            evaluateListPKID:id
+        }
+    })
+}
+
+// 获取指定评价指标信息
+export function getTargetItem(pkid){
+    return request({
+        url: '/evaluateTarget/get/'+pkid,
+        method: 'GET',
     })
 }

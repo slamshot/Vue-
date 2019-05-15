@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import {saveConsignInfo} from './evaluateConsignApi.js'
 import selectUser from '../../components/selectUser/selectUser.vue'
 export default {
     name:'evaluateConsign',
@@ -35,6 +36,7 @@ export default {
             dialogFormVisible:true,
             title:'',
             people:'',
+            data:[],
         }
     },
     methods:{// 自定义方法
@@ -48,6 +50,8 @@ export default {
         },
         // 添加委托人
         callback(data){
+            console.log(data);
+            this.data=data;
             if(data.length>0){
                 let peopleArr=[];
                 for(let i=0;i<data.length;i++){
@@ -58,7 +62,30 @@ export default {
             }
         },
         confirm(){
-            this.$router.back();
+            console.log(this.data);
+            let apiData={};
+            apiData.doUserCount=this.data.length;
+            let doFullNameArr=[];
+            let doUserNoArr=[];
+            
+            for(let i=0;i<this.data.length;i++){
+                doFullNameArr.push(this.data[i].name)
+                doUserNoArr.push(this.data[i].id)
+            }
+            let doFullNameStr=doFullNameArr.join(',');
+            let doUserNoStr=doUserNoArr.join(',');
+            apiData.doFullName=doFullNameStr;
+            apiData.doUserNo=doUserNoStr;
+            saveConsignInfo(apiData).then((result) => {
+                this.$router.back();
+                this.$message({
+                    message: '委托成功',
+                    type: 'success'
+                });
+            }).catch((err) => {
+                // this.$message.error('委托失败');
+            });
+            
         }
     },
     /**

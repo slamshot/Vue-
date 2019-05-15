@@ -110,8 +110,8 @@ export default {
                 },
                 method: 'GET',
                 headers: {
-                    'JSESSIONID':'76D46FBEBA9A43A3A64DBF91BDE2A4D0',
-                    'io':'vEHvnBXkyOqnXUmhAAQY'
+                    'JSESSIONID':'A436485AAEB7E679D6DF82EF2AD35C0A',
+                    'io':'JcBC6zHARnmn78NBAAQf'
                 }
 
             }

@@ -1,6 +1,6 @@
 <template>
     <div id="evaluateClientSec">
-        <el-dialog title="填写" 
+        <el-dialog :title="title" 
         :visible.sync="dialogFormVisible"
         :before-close="handleClose">
             <h4>{{StartYear}}——{{nowUserName}}</h4>
@@ -42,32 +42,32 @@
             <el-table :data="tableTarget">
                 <el-table-column v-for="(item,index) in tableArr" :key="index" :label="item.depart" :prop="'target'+(index+1)">
                     <template slot-scope="scope">
-                        <el-select v-if="index != 0" v-model="scope.row['target'+(index+1)]">
+                        <el-select :disabled="isDisabled" v-if="index != 0" v-model="tableArr[index]['target'+(scope.$index+1)]">
                             <el-option value="A">A</el-option>
                             <el-option value="B">B</el-option>
                             <el-option value="C">C</el-option>
                             <el-option value="D">D</el-option>
                         </el-select>
-                        <label v-else>{{ scope.row.targetName }}</label>
+                        <label @mouseover="hoverTitle(scope.$index)" v-else>{{ scope.row.targetName }}</label>
                     </template>
                 </el-table-column>
             </el-table>
             <div class="rightBtnGroup">
-                <el-button type="primary" @click="submit">提交</el-button>
-                <el-button @click="temporaryStorage">暂存</el-button>
+                <el-button v-show="!isDisabled" type="primary" @click="submit">提交</el-button>
+                <el-button v-show="!isDisabled" @click="temporaryStorage">暂存</el-button>
                 <el-button type="info" @click="handleClose">关闭</el-button>
             </div>
             <h5>“A”对应100%，“B”对应85%，“C”对应70%，“D”对应65%，“E”对应50%，</h5>
-            <footer>
-                <div></div>
-                <div></div>
+            <footer v-show="description!=''">
+                <div>{{description}}</div>
+                <div>{{evaluKind}}</div>
             </footer>
         </el-dialog>
     </div>
 </template>
 
 <script>
-import {evaluateContent,saveFillContent} from './evaluateClientSecApi.js'
+import {evaluateContent,saveFillContent,getFillContent,getTargetItem} from './evaluateClientSecApi.js'
 import {getLoginInfo} from '../../OnlineEvaluation/onlineEvaluation.js'
 export default {
     name:'evaluateClientSec',
@@ -76,6 +76,7 @@ export default {
     },
     data:function(){// 自定义变量
         return {
+            isDisabled:false,
             nowUserName:'',
             dialogFormVisible:true,
             title:'',
@@ -85,34 +86,71 @@ export default {
             tableTarget:[],
             tableHead:[],
             tableArr:[],
-            tableData:[]
+            // 指标信息
+            description:'',
+            evaluKind:'',
         }
     },
     methods:{// 自定义方法
         handleClose(done) {
             this.$router.back();
         },
+        // 参数提示
+        hoverTitle(index){
+            getTargetItem(this.tableTarget[index].targetPKID).then((result) => {
+                this.description=result.data.description;
+                this.evaluKind=result.data.evaluKind;
+            }).catch((err) => {
+                
+            });
+        },
         // 暂存
         temporaryStorage(){
-
+            let data=[];
+            for(let i=1;i<this.tableArr.length;i++){
+                data.push(this.tableArr[i])
+            }
+            console.log(data);
+            
+            for(let i=0;i<data.length;i++){
+                data[i].doneFullName=data[i].depart;
+                data[i].doneUserNo=data[i].depart;
+                data[i].evaluateId=this.$route.query.id;
+                data[i].evaluateListPKID=this.$route.query.EvaluateListPKID;
+                data[i].flag=0;
+                data[i].state=1;
+            }
+            
+            saveFillContent(data).then((result) => {
+                this.$router.push({name:'fillEvaluation'})
+            }).catch((err) => {
+                
+            });
         },
         // 提交
         submit(){
             console.log(this.tableArr);
             
-            // for(let i=0;i<this.tableArr.length;i++){
-            //     this.tableArr[i].doneFullName=this.tableArr[i].depart;
-            //     this.tableArr[i].doneUserNo=this.tableArr[i].depart;
-            //     this.tableArr[i].evaluateId=this.$route.query.id;
-            //     this.tableArr[i].evaluateListPKID=this.$route.query.EvaluateListPKID;
-            //     this.tableArr[i].flag=0;
-            // }
+            let data=[];
+            for(let i=1;i<this.tableArr.length;i++){
+                data.push(this.tableArr[i])
+            }
+            console.log(data);
             
-            // saveFillContent(this.tableArr).then((result) => {
-            //     this.$router.push({name:'fillEvaluation'})
-            // }).catch((err) => {
+            for(let i=0;i<data.length;i++){
+                data[i].doneFullName=data[i].depart;
+                data[i].doneUserNo=data[i].depart;
+                data[i].evaluateId=this.$route.query.id;
+                data[i].evaluateListPKID=this.$route.query.EvaluateListPKID;
+                data[i].flag=0;
+                data[i].state=0;
+            }
+            
+            saveFillContent(data).then((result) => {
+                this.$router.push({name:'fillEvaluation'})
+            }).catch((err) => {
                 
-            // });
+            });
         },
     },
     /**
@@ -129,37 +167,55 @@ export default {
         
     },
     created:function(){// 组件创建后
-        if(this.$route.query.state == 'add'){
-            this.title='填写';
-        }else{
-            this.title='查看';
-        }
         this.EvaluKind=this.$route.query.EvaluKind;
         this.EvaluateTname=this.$route.query.EvaluateTname;
         this.StartDate=this.$route.query.StartDate.substring(0,10);
         this.StartYear=this.$route.query.StartDate.substring(0,4);
-        evaluateContent(this.$route.query.id).then((result) => {
+        if(this.$route.query.state == 'add'){
+            this.title='填写';
+            evaluateContent(this.$route.query.id).then((result) => {
+                this.tableTarget=result.data.evaluateTargets;
+                this.tableHead=result.data.doneFullNames.split(',');
+                this.tableArr.push({"depart":''});
+                for(let j=0;j<this.tableHead.length;j++){
+                    let json = {};
+                    json["depart"] = this.tableHead[j];
+                    for(let i=0;i<this.tableTarget.length;i++){
+                        json["target"+(i+1)] = "A";
+                    }
+                    this.tableArr.push(json)
+                }
+            }).catch((err) => {
+                
+            });;
+        }else{
+            this.title='查看';
+            this.isDisabled=true;
+            evaluateContent(this.$route.query.id).then((result) => {
             this.tableTarget=result.data.evaluateTargets;
             this.tableHead=result.data.doneFullNames.split(',');
-            this.tableArr.push({"depart":''});
-            for(let j=0;j<this.tableHead.length;j++){
-                let json = {};
-                json["depart"] = this.tableHead[j];
-                for(let i=0;i<this.tableTarget.length;i++){
-                    json["target"+(i+1)] = "A";
+            getFillContent(this.$route.query.EvaluateListPKID).then((result) => {
+            this.tableArr.push({'depart':''})
+            for(let i=0;i<this.tableHead.length;i++){
+                let json={};
+                json["depart"] = this.tableHead[i];
+                for(let j=0;j<this.tableTarget.length;j++){
+                    if(result.data[i]['target'+(j+1)]){
+                        json['target'+(j+1)]=result.data[i]['target'+(j+1)];
+                    }
                 }
                 this.tableArr.push(json)
             }
-                console.log(tableTarget);
-                console.log(tableHead);
-                console.log(tableArr);
-        }).catch((err) => {
-            
-        });;
+            }).catch((err) => {
+                
+            });
+            }).catch((err) => {
+                 
+             });
+             
+        }
         
         this.nowUserName=getLoginInfo('inputerFullName');
-        
-        
         
     },
     mounted:function(){// 组件加载完成
@@ -192,7 +248,19 @@ export default {
     h5{
         text-align: center;
     }
-    .leftDiv{
+    footer div{
+        margin-right: 40px;
+        margin-left: 40px;
+        border: 1px solid #ddd;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    footer div:first-child{
+        border-bottom: none;
+    }
+    /* .leftDiv{
         display: flex;
         flex-wrap: wrap;
         width: 80px;
@@ -250,5 +318,5 @@ export default {
         align-items: center;
         height: 30px;
         border: 1px solid #eee;
-    }
+    } */
 </style>
