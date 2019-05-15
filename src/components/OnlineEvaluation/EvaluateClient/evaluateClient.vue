@@ -234,6 +234,9 @@ export default {
         // 删除行
         handleDelete_group(index,row){
             this.formDataDetail_group.splice(index, 1);
+            if(Object.is(row.doType,'add')){
+                return;
+            }
             this.deleteDetailData_group.push(Object.assign(row,{doType:"delete"}));
         },
         // handleDelete_index(index,row){
@@ -242,6 +245,9 @@ export default {
         // },
         handleDelete_evaluate(index,row){
             this.formDataDetail_evaluate.splice(index, 1);
+            if(Object.is(row.doType,'add')){
+                return;
+            }
             this.deleteDetailData_evaluate.push(Object.assign(row,{doType:"delete"}));
         },
         // 下一步
