@@ -75,23 +75,23 @@ export default {
                     sortable:true
                 },
                 {
-                    id:"StartDate",
+                    id:"InputDate",
                     text:"开始时间",
                     align:"center",
                     width:80,
                     sortable:true,
                     formatter:function(row,column){
-                        return formatDate(row.StartDate);
+                        return formatDate(row.InputDate);
                     }
                 },
                 {
-                    id:"EndDate",
+                    id:"FinishDate",
                     text:"结束时间",
                     align:"center",
                     width:80,
                     sortable:true,
                     formatter:function(row,column){
-                        return formatDate(row.EndDate);
+                        return formatDate(row.FinishDate);
                     }
                 },
                 {
@@ -135,26 +135,27 @@ export default {
                             // disabled:!row.state=='start',
                             click:(row) => {
                                 console.log(row);
-                                if(row.State!='start'){
-                                    this.$message({
-                                        message: '该条目已填写完成',
-                                        type: 'warning'
-                                    });
-                                }else{
+                                // if(row.State!='start'){
+                                //     this.$message({
+                                //         message: '该条目已填写完成',
+                                //         type: 'warning'
+                                //     });
+                                // }else{
                                     this.$router.push(
                                         {
                                             name:'evaluateClientSec',
                                             query:{
                                                 EvaluKind:row.EvaluKind,
                                                 EvaluateTname:row.EvaluateTname,
-                                                StartDate:row.StartDate,
+                                                StartDate:row.InputDate,
                                                 state:'add',
                                                 id:row.EvaluateId,
                                                 EvaluateListPKID:row.EvaluateListPKID,
+                                                type:row.type,
                                             }
                                         }
                                     ); 
-                                }
+                                // }
                             }
                         },
                         {
@@ -163,7 +164,15 @@ export default {
                             icon:"el-icon-caret-right",
                             click:(row) => {
                                 //this.viewButtonClick(row[key],row.state);
-                                this.$router.push({name:'evaluateConsign',query:{PlanName:row.PlanName}}); 
+                                console.log(row);
+                                if(row.type==0){
+                                    this.$router.push({name:'evaluateConsign',query:{PlanName:row.PlanName,EvaluateId:row.EvaluateId,EvaluateListPKID:row.EvaluateListPKID}}); 
+                                }else{
+                                    this.$message({
+                                        message: '该条目不可再次委托',
+                                        type: 'warning'
+                                    });
+                                }
                             }
                         },
                         {
@@ -247,7 +256,7 @@ export default {
         }
     },
     created:function(){// 组件创建后
-       console.log(this.$store.state.userInfo);
+       console.log(111111111);
     },
     mounted:function(){// 组件加载完成
         // DOTO

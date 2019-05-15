@@ -39,16 +39,16 @@
                     </div>
                 </div>
             </div> -->
-            <el-table :data="tableTarget">
+            <el-table border :data="tableTarget">
                 <el-table-column v-for="(item,index) in tableArr" :key="index" :label="item.depart" :prop="'target'+(index+1)">
-                    <template slot-scope="scope">
+                    <template class="iiiii" slot-scope="scope">
                         <el-select :disabled="isDisabled" v-if="index != 0" v-model="tableArr[index]['target'+(scope.$index+1)]">
                             <el-option value="A">A</el-option>
                             <el-option value="B">B</el-option>
                             <el-option value="C">C</el-option>
                             <el-option value="D">D</el-option>
                         </el-select>
-                        <label @mouseover="hoverTitle(scope.$index)" v-else>{{ scope.row.targetName }}</label>
+                        <label class="labelBlue" @mouseover="hoverTitle(scope.$index)" v-else>{{ scope.row.targetName }}</label>
                     </template>
                 </el-table-column>
             </el-table>
@@ -67,7 +67,7 @@
 </template>
 
 <script>
-import {evaluateContent,saveFillContent,getFillContent,getTargetItem} from './evaluateClientSecApi.js'
+import {evaluateContent,saveFillContent,getFillContent,getTargetItem,saveConsignFillContent} from './evaluateClientSecApi.js'
 import {getLoginInfo} from '../../OnlineEvaluation/onlineEvaluation.js'
 export default {
     name:'evaluateClientSec',
@@ -121,11 +121,19 @@ export default {
                 data[i].state=1;
             }
             
-            saveFillContent(data).then((result) => {
-                this.$router.push({name:'fillEvaluation'})
-            }).catch((err) => {
-                
-            });
+            if(this.$route.type==0){
+                saveFillContent(data).then((result) => {
+                    this.$router.push({name:'fillEvaluation'})
+                }).catch((err) => {
+                    
+                });
+            }else{
+                saveConsignFillContent(data).then((result) => {
+                    this.$router.push({name:'fillEvaluation'})
+                }).catch((err) => {
+                    
+                });
+            }
         },
         // 提交
         submit(){
@@ -146,11 +154,19 @@ export default {
                 data[i].state=0;
             }
             
-            saveFillContent(data).then((result) => {
-                this.$router.push({name:'fillEvaluation'})
-            }).catch((err) => {
-                
-            });
+            if(this.$route.query.type==0){
+                saveFillContent(data).then((result) => {
+                    this.$router.push({name:'fillEvaluation'})
+                }).catch((err) => {
+                    
+                });
+            }else{
+                saveConsignFillContent(data).then((result) => {
+                    this.$router.push({name:'fillEvaluation'})
+                }).catch((err) => {
+                    
+                });
+            }
         },
     },
     /**
@@ -233,7 +249,10 @@ export default {
 <style scope>
     .blockDiv{
         display: flex;
-        justify-content: space-around;
+        margin-bottom: 15px;
+    }
+    .blockDiv>div{
+        margin-right: 40px;
     }
     .blockDiv em{
         font-style: normal;
@@ -259,6 +278,13 @@ export default {
     }
     footer div:first-child{
         border-bottom: none;
+    }
+    h4{
+        font-size: 18px;
+        color: #409EFF;
+    }
+    .labelBlue{
+        color: #409EFF;
     }
     /* .leftDiv{
         display: flex;

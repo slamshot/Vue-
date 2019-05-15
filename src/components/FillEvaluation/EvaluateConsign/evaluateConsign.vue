@@ -76,8 +76,12 @@ export default {
             let doUserNoStr=doUserNoArr.join(',');
             apiData.doFullName=doFullNameStr;
             apiData.doUserNo=doUserNoStr;
+            apiData.evaluateId=this.$route.query.EvaluateId;
+            apiData.evaluateListPKID=this.$route.query.EvaluateListPKID;
+            console.log(apiData);
+            
             saveConsignInfo(apiData).then((result) => {
-                this.$router.back();
+                this.$router.push({name:'fillEvaluation'})
                 this.$message({
                     message: '委托成功',
                     type: 'success'

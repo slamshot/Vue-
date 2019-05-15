@@ -24,6 +24,20 @@ export function saveFillContent(data){
         }
     })
 }
+// state:提交0,暂存1    被委托人的信息
+export function saveConsignFillContent(data){
+    return request({
+        url: '/evaluateClientList/saveConsignFillContent',
+        data:JSON.stringify(data),
+        method: 'POST',
+        transformRequest: [(data) => {
+            return data
+        }],
+        headers: {
+            'Content-Type': 'application/json;charset=UTF-8'
+        }
+    })
+}
 
 // 查看，获取填写内容
 export function getFillContent(id){
