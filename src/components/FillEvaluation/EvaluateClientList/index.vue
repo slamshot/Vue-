@@ -229,9 +229,9 @@ export default {
         // 请求列表数据之前
         beforeGetListData(currentPage,pageSize,order,filters){
             if(filters){
-                filters = Object.assign(filters,{doUserNo:'10004'});
+                filters = Object.assign(filters,{doUserNo:'10006'});
             }else{
-                filters = {doUserNo:'10004'};
+                filters = {doUserNo:'10006'};
             }
         }
     },
@@ -252,7 +252,7 @@ export default {
         }
     },
     created:function(){// 组件创建后
-       console.log(111111111);
+       
     },
     mounted:function(){// 组件加载完成
         // DOTO
