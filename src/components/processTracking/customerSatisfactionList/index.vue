@@ -95,14 +95,6 @@ export default {
             toolBarConfig:{
                 // 列表上方按钮
                 top:[
-                    {
-                        id:"refresh",
-                        text:"刷新",
-                        icon:"el-icon-refresh",
-                        click:(row) => {
-                            this.$refs.table.refresh();
-                        }
-                    }
                 ],
                 // 列表行内按钮
                 eachRow:{
