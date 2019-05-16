@@ -2,28 +2,6 @@
     <div id="search">
         <el-form :inline="true" :model="searchData" class="demo-form-inline">
             <el-row id="searchFrom">
-                <el-col :span="6" style="width:200px;">
-                    <el-form-item>
-                        <el-input v-model="searchData.evaluateTname" placeholder="制表部门" size="small" style="width:150px;" clearable></el-input>
-                    </el-form-item>
-                </el-col>
-                <el-col :span="6" style="width:250px;">
-                    <el-form-item>
-                        <el-select v-model="searchData.evaluKind" placeholder="评价方式" size="small" style="width:150px;" clearable>
-                            <el-option v-for="item in evaluKindOptions" :key="item.value" :label="item.label" :value="item.value"></el-option>
-                        </el-select>
-                    </el-form-item>
-                </el-col>
-                <!-- <el-col :span="6" style="width:200px;">
-                    <el-form-item>
-                        <el-input v-model="searchData.levelType" placeholder="评价方式" size="small" style="width:150px;" clearable></el-input>
-                    </el-form-item>
-                </el-col> -->
-                <!-- <el-col :span="4">
-                    <el-button type="primary" @click="searching" size="small" icon="el-icon-search">查询</el-button>
-                </el-col> -->
-            <!-- </el-row>
-            <el-row> -->
                 <el-col :span="6" style="width:250px;">
                     <el-form-item label-width="100px">
                         <el-date-picker size="small" v-model="searchData.dateFrame" type="daterange" range-separator="至" 
@@ -32,13 +10,13 @@
                 </el-col>
                 <el-col :span="6" style="width:300px;">
                     <el-form-item>
-                        <el-input v-model="searchData.planName" placeholder="请输入评测表名称、制表人进行查询" size="small" style="width:260px;" clearable></el-input>
+                        <el-input v-model="searchData.evaluateTname" placeholder="请输入评测表名称" size="small" style="width:260px;" clearable></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col :span="4">
                     <!-- <el-button type="primary" @click="clear" size="small" icon="el-icon-refresh">清空</el-button> -->
                     <el-button style="margin-top: 4px;" type="primary" @click="searching" size="small" icon="el-icon-search">查询</el-button>
-                    <el-button style="margin-top: 4px;" type="primary" size="small" icon="el-icon-circle-close">清空</el-button>
+                    <el-button style="margin-top: 4px;" type="primary" @click="clearFrom" size="small" icon="el-icon-circle-close">清空</el-button>
                 </el-col>
             </el-row>
         </el-form>
@@ -69,6 +47,10 @@ export default {
         //         flag:''
         //     };
         // }
+        // 清空
+        clearFrom(){
+            this.searchData={};
+        }
     },
     /**
      * 计算属性（自定义方法）
