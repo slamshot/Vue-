@@ -235,9 +235,9 @@ export default {
         // 请求列表数据之前
         beforeGetListData(currentPage,pageSize,order,filters){
             if(filters){
-                filters = Object.assign(filters,{doUserNo:'10006'});
+                filters = Object.assign(filters,{doUserNo:'10002'});
             }else{
-                filters = {doUserNo:'10006'};
+                filters = {doUserNo:'10002'};
             }
         }
     },

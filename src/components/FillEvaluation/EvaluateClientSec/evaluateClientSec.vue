@@ -125,6 +125,7 @@ export default {
                 data[i].evaluateListPKID=this.$route.query.EvaluateListPKID;
                 data[i].flag=0;
                 data[i].state=1;
+                data[i].inputerUserNo='10002';
             }
             
             if(this.$route.type==0){
@@ -166,6 +167,7 @@ export default {
                 data[i].evaluateListPKID=this.$route.query.EvaluateListPKID;
                 data[i].flag=0;
                 data[i].state=0;
+                data[i].inputerUserNo='10002';
             }
             
             if(this.$route.query.type==0){
