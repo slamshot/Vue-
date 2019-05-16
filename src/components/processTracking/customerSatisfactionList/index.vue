@@ -1,5 +1,5 @@
 <template>
-    <div id="evaluateClientUser" class="content-height">
+    <div id="customerSatisfactionList" class="content-height">
         <z-table ref="table" :tableColumnConfig='tableColumnConfig' :toolBarConfig='toolBarConfig'
         :tableBaseConfig='tableBaseConfig'></z-table>
         <router-view></router-view>
@@ -9,17 +9,17 @@
 import ZTable from '../../zTable'
 import DefaultButtons from '../../zTable/zTable.js'
 import SearchPage from './search'
-import {getList,deleted} from './evaluateClientList.js'
+import {getList,deleted} from './customerSatisfactionList'
 import { formatDate } from '@/utils/common.js'
 
 // 表单的路由路径
-const pageUrl = '/evaluateClientList'
-// 路由的名称
-const routerName = 'evaluateClientList'
+// const pageUrl = '/evaluateClientList'
+// // 路由的名称
+// const routerName = 'evaluateClientList'
 // 主键字段
 const key = 'pkid'
 export default {
-    name:'evaluateClientUser',
+    name:'customerSatisfactionList',
     components:{
         ZTable
     },
@@ -47,70 +47,49 @@ export default {
             // 列表配置
             tableColumnConfig:[
                 {
-                    id:"EvaluateTname",
+                    id:"evaluateTname",
                     text:"评价表名称",
                     align:"center",
                     width:150,
                     sortable:true
                 },
                 {
-                    id:"PlanName",
+                    id:"planName",
                     text:"评价计划",
                     align:"center",
                     width:150,
                     sortable:true
                 },
                 {
-                    id:"EvaluKind",
-                    text:"评价类别",
+                    id:"inputDate",
+                    text:"制表时间",
                     align:"center",
                     width:150,
-                    sortable:true
+                    sortable:true,
+                    formatter:function(row,column){
+                        return formatDate(row.inputDate);
+                    }
                 },
                 {
-                    id:"LevelType",
-                    text:"评价方式",
+                    id:"doUserCount",
+                    text:"评价人数",
                     align:"center",
                     width:120,
                     sortable:true
                 },
                 {
-                    id:"InputDate",
-                    text:"开始时间",
+                    id:"doneUserCount",
+                    text:"被评价部门数",
                     align:"center",
                     width:80,
-                    sortable:true,
-                    formatter:function(row,column){
-                        return formatDate(row.InputDate);
-                    }
+                    sortable:true
                 },
                 {
-                    id:"FinishDate",
-                    text:"结束时间",
-                    align:"center",
-                    width:80,
-                    sortable:true,
-                    formatter:function(row,column){
-                        if(row.FinishDate != null){
-                            return formatDate(row.FinishDate);
-                        }
-                    }
-                },
-                {
-                    id:"State",
+                    id:"state",
                     text:"状态",
                     align:"center",
                     width:60,
                     sortable:true,
-                    formatter:function(row,column){
-                        if(row.State=='start'){
-                            return '待填'
-                        }else if(row.State=='finish'){
-                            return  '完成'
-                        }else{
-                            return '委托'
-                        }
-                    }
                 },
             ],
             // 工具栏配置
@@ -132,50 +111,31 @@ export default {
                     default:[
                         {
                             id:"fill",
-                            text:"填写",
-                            icon:"el-icon-edit",
+                            text:"删除",
+                            icon:"el-icon-delete-solid",
                             // disabled:!row.state=='start',
                             click:(row) => {
                                 console.log(row);
-                                if(row.State=='finish'){
-                                    this.$message({
-                                        message: '该条目已填写完成',
-                                        type: 'warning'
+                                this.$confirm('是否删除, 是否继续?', '提示', {
+                                    confirmButtonText: '确定',
+                                    cancelButtonText: '取消',
+                                    type: 'warning'
+                                }).then(() => {
+                                    deleted(row.id).then((result) => {
+                                        this.$message({
+                                            type: 'success',
+                                            message: '删除成功!'
+                                        });
+                                        this.$refs.table.refresh();
+                                    }).catch((err) => {
+                                        
                                     });
-                                }else{
-                                    this.$store.commit("setData",{callback:this.dialogCallback})
-                                    this.$router.push(
-                                        {
-                                            name:'evaluateClientSec',
-                                            query:{
-                                                EvaluKind:row.EvaluKind,
-                                                EvaluateTname:row.EvaluateTname,
-                                                StartDate:row.InputDate,
-                                                state:'add',
-                                                id:row.EvaluateId,
-                                                EvaluateListPKID:row.EvaluateListPKID,
-                                                type:row.type,
-                                            }
-                                        }
-                                    ); 
-                                }
-                            }
-                        },
-                        {
-                            id:"consign",
-                            text:"委托",
-                            icon:"el-icon-caret-right",
-                            click:(row) => {
-                                this.$store.commit("setData",{callback:this.dialogCallback})
-                                // this.viewButtonClick(row[key],row.state);
-                                if(row.type==0 && row.State!='finish'){
-                                    this.$router.push({name:'evaluateConsign',query:{PlanName:row.PlanName,EvaluateId:row.EvaluateId,EvaluateListPKID:row.EvaluateListPKID}}); 
-                                }else{
+                                }).catch(() => {
                                     this.$message({
-                                        message: '根据该条目状态判定不可委托',
-                                        type: 'warning'
-                                    });
-                                }
+                                        type: 'info',
+                                        message: '已取消删除'
+                                    });          
+                                });
                             }
                         },
                         {
@@ -183,19 +143,9 @@ export default {
                             text:"查看",
                             icon:"el-icon-view",
                             click:(row) => {
-                                this.$router.push(
-                                    {
-                                        name:'evaluateClientSec',
-                                        query:{
-                                            EvaluKind:row.EvaluKind,
-                                            EvaluateTname:row.EvaluateTname,
-                                            StartDate:row.InputDate,
-                                            state:'look',
-                                            id:row.EvaluateId,
-                                            EvaluateListPKID:row.EvaluateListPKID,
-                                        }
-                                    }
-                                ); 
+                                this.$store.commit("setData",{callback:this.dialogCallback})
+                                console.log(row);
+                                this.$router.push({name:'customerSatisfactionView',query:{groupName:row.groupName,evaluKind:row.evaluKind,inputDate:row.inputDate,emailDay:row.emailDay,modelName:row.modelName,evaluateTname:row.evaluateTname,id:row.id}})
                             }
                         }
                     ],
@@ -226,16 +176,16 @@ export default {
         rowsSelected(rows){
              
         },
+        // 弹出框回调函数
+        dialogCallback(data){
+            this.$refs.table.refresh();
+        },
         /**
          * 点击全选的checkbox触发
          * rows：选中的所有行
          */
         rowsSelectedAll(rows){
             
-        },
-        // 弹出框回调函数
-        dialogCallback(data){
-            this.$refs.table.refresh();
         },
         // 请求列表数据之前
         beforeGetListData(currentPage,pageSize,order,filters){

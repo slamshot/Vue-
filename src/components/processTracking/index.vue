@@ -1,22 +1,22 @@
 <template>
-    <div id="fillEvaluation">
+    <div id="processTracking">
         <!-- <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
             <el-tab-pane label="收到的评价表" name="first">
                 <evaluate-client-list></evaluate-client-list>
             </el-tab-pane>
         </el-tabs> -->
-        <div id="pjbDiv">
-            <router-link class="pjbDivSon" tag="div" :to="{name:'fillEvaluationList'}">收到的评价表</router-link>
+        <div id="nbgkmydDiv">
+            <router-link class="nbgkmydDivSon" tag="div" :to="{name:'fillEvaluationList'}">内部顾客满意度评测</router-link>
         </div>
         <router-view></router-view>
     </div>
 </template>
 <script>
-import EvaluateClientList from './EvaluateClientList'
+// import EvaluateClientList from './EvaluateClientList'
 export default {
-    name:'fillEvaluation',
+    name:'processTracking',
     components:{
-        EvaluateClientList
+        // EvaluateClientList
     },
     props:{// 其他组件传入的值
        
@@ -43,11 +43,12 @@ export default {
     },
     watch:{
         $route(to,from){
-            let domArr=document.querySelector('#pjbDiv').querySelectorAll('.pjbDivSon');
+            let domArr=document.querySelector('#nbgkmydDiv').querySelectorAll('.nbgkmydDivSon');
             
             for(let i=0;i<domArr.length;i++){
                 domArr[i].style.borderBottom='';
             }
+            console.log(domArr);
             
             switch(to.name){
                 case "fillEvaluationList":
@@ -62,7 +63,7 @@ export default {
     },
     mounted:function(){// 组件加载完成
         // TODO
-        let domArr=document.querySelector('#pjbDiv').querySelectorAll('.pjbDivSon')
+        let domArr=document.querySelector('#nbgkmydDiv').querySelectorAll('.nbgkmydDivSon')
         
         domArr[0].style.borderBottom='2px solid #66b1ff';
     },
@@ -85,16 +86,16 @@ export default {
     height: 100%;
 } */
 
-#fillEvaluation{
+#processTracking{
     height:100%;
     width:100%
 }
-#pjbDiv{
+#nbgkmydDiv{
     display: flex;
     border-bottom: 1px solid #ddd;
     height: 40px;
 }
-#pjbDiv>div{
+#nbgkmydDiv>div{
     cursor: pointer;
     display: flex;
     justify-content: center;

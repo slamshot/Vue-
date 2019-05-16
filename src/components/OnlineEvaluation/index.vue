@@ -49,22 +49,22 @@ export default {
     watch:{
         $route(to,from){
             let domArr=document.querySelector('#nbgkmydDiv').querySelectorAll('.nbgkmydDivSon');
-            // console.log(domArr);
+            
             for(let i=0;i<domArr.length;i++){
                 domArr[i].style.borderBottom='';
             }
             switch(to.name){
-                case "EvaluatePlan":
-                    domArr[0].style.borderBottom='2px solid blue';
+                case "evaluatePlanList":
+                    domArr[0].style.borderBottom='2px solid #66b1ff';
                     break;
-                case "EvaluateTarget":
-                    domArr[1].style.borderBottom='2px solid blue';
+                case "evaluateTargetList":
+                    domArr[1].style.borderBottom='2px solid #66b1ff';
                     break;
-                case "EvaluateModel":
-                    domArr[2].style.borderBottom='2px solid blue';
+                case "evaluateModelList":
+                    domArr[2].style.borderBottom='2px solid #66b1ff';
                     break;
-                case "EvaluateClient":
-                    domArr[3].style.borderBottom='2px solid blue';
+                case "evaluateClientList":
+                    domArr[3].style.borderBottom='2px solid #66b1ff';
                     break;
             }
         }
@@ -85,7 +85,7 @@ export default {
     mounted:function(){// 组件加载完成
         // TODO
         let domArr=document.querySelector('#nbgkmydDiv').querySelectorAll('.nbgkmydDivSon');
-        domArr[0].style.borderBottom='2px solid blue';
+        domArr[0].style.borderBottom='2px solid #66b1ff';
     },
     beforeUpdate:function(){// 组件数据更新之前
         // TODO

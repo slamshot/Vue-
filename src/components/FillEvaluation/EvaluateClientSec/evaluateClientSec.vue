@@ -1,6 +1,6 @@
 <template>
     <div id="evaluateClientSec">
-        <el-dialog :title="title" 
+        <el-dialog width='60%' :title="title" 
         :visible.sync="dialogFormVisible"
         :before-close="handleClose">
             <h4>{{StartYear}}——{{nowUserName}}</h4>
@@ -59,8 +59,8 @@
             </div>
             <h5>“A”对应100%，“B”对应85%，“C”对应70%，“D”对应65%，“E”对应50%，</h5>
             <footer v-show="description!=''">
-                <div>{{description}}</div>
                 <div>{{evaluKind}}</div>
+                <div>{{description}}</div>
             </footer>
         </el-dialog>
     </div>
@@ -87,8 +87,9 @@ export default {
             tableHead:[],
             tableArr:[],
             // 指标信息
-            description:'',
             evaluKind:'',
+            description:'',
+            targeDescripts:{}
         }
     },
     methods:{// 自定义方法
@@ -97,12 +98,18 @@ export default {
         },
         // 参数提示
         hoverTitle(index){
-            getTargetItem(this.tableTarget[index].targetPKID).then((result) => {
-                this.description=result.data.description;
-                this.evaluKind=result.data.evaluKind;
-            }).catch((err) => {
-                
-            });
+            if(!this.targeDescripts[index]){
+                getTargetItem(this.tableTarget[index].targetPKID).then((result) => {
+                    this.description=result.data.description;
+                    this.targeDescripts[index] = this.description;
+                }).catch((err) => {
+                    
+                });
+            }else{
+                this.description = this.targeDescripts[index];
+            }
+            this.evaluKind=this.tableTarget[index].targetName
+            
         },
         // 暂存
         temporaryStorage(){
@@ -110,7 +117,6 @@ export default {
             for(let i=1;i<this.tableArr.length;i++){
                 data.push(this.tableArr[i])
             }
-            console.log(data);
             
             for(let i=0;i<data.length;i++){
                 data[i].doneFullName=data[i].depart;
@@ -124,14 +130,22 @@ export default {
             if(this.$route.type==0){
                 saveFillContent(data).then((result) => {
                     this.$router.back();
-                    window.location.reload();
+                    this.$message({
+                        message: '暂存成功',
+                        type: 'success'
+                    });
+                    this.$store.state.data.callback();
                 }).catch((err) => {
                     
                 });
             }else{
                 saveConsignFillContent(data).then((result) => {
                     this.$router.back();
-                    window.location.reload();
+                    this.$message({
+                        message: '暂存成功',
+                        type: 'success'
+                    });
+                    this.$store.state.data.callback();
                 }).catch((err) => {
                     
                 });
@@ -139,13 +153,11 @@ export default {
         },
         // 提交
         submit(){
-            console.log(this.tableArr);
             
             let data=[];
             for(let i=1;i<this.tableArr.length;i++){
                 data.push(this.tableArr[i])
             }
-            console.log(data);
             
             for(let i=0;i<data.length;i++){
                 data[i].doneFullName=data[i].depart;
@@ -159,14 +171,22 @@ export default {
             if(this.$route.query.type==0){
                 saveFillContent(data).then((result) => {
                     this.$router.back();
-                    window.location.reload();
+                    this.$message({
+                        message: '保存成功',
+                        type: 'success'
+                    });
+                    this.$store.state.data.callback();
                 }).catch((err) => {
                     
                 });
             }else{
                 saveConsignFillContent(data).then((result) => {
                     this.$router.back();
-                    window.location.reload();
+                    this.$message({
+                        message: '保存成功',
+                        type: 'success'
+                    });
+                    this.$store.state.data.callback();
                 }).catch((err) => {
                     
                 });
@@ -212,26 +232,27 @@ export default {
             this.title='查看';
             this.isDisabled=true;
             evaluateContent(this.$route.query.id).then((result) => {
-            this.tableTarget=result.data.evaluateTargets;
-            this.tableHead=result.data.doneFullNames.split(',');
-            getFillContent(this.$route.query.EvaluateListPKID).then((result) => {
-            this.tableArr.push({'depart':''})
-            for(let i=0;i<this.tableHead.length;i++){
-                let json={};
-                json["depart"] = this.tableHead[i];
-                for(let j=0;j<this.tableTarget.length;j++){
-                    if(result.data[i]['target'+(j+1)]){
-                        json['target'+(j+1)]=result.data[i]['target'+(j+1)];
+                this.tableTarget=result.data.evaluateTargets;
+                this.tableHead=result.data.doneFullNames.split(',');
+                getFillContent(this.$route.query.EvaluateListPKID).then((result) => {
+                    
+                this.tableArr.push({'depart':''})
+                for(let i=0;i<this.tableHead.length;i++){
+                    let json={};
+                    json["depart"] = this.tableHead[i];
+                    for(let j=0;j<this.tableTarget.length;j++){
+                        if(result.data[i]['target'+(j+1)]){
+                            json['target'+(j+1)]=result.data[i]['target'+(j+1)];
+                        }
                     }
+                    this.tableArr.push(json)
                 }
-                this.tableArr.push(json)
-            }
-            }).catch((err) => {
-                
-            });
+                }).catch((err) => {
+                    
+                });
             }).catch((err) => {
                  
-             });
+            });
              
         }
         
@@ -262,11 +283,13 @@ export default {
         font-style: normal;
     }
     .rightBtnGroup{
-        width: 200px;
         margin: 0 auto;
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         margin-top: 20px;
+    }
+    .rightBtnGroup>button{
+        margin-right: 15px;
     }
     h5{
         text-align: center;

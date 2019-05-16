@@ -6,7 +6,7 @@
         <div id="firstJ">
           <router-link class="divHand" tag="div" :to="{name:'onlineEvaluation'}">评价计划</router-link>
           <router-link class="divHand" tag="div" :to="{name:'fillEvaluation'}">评价表</router-link>
-          <router-link class="divHand" tag="div" :to="{name:'fillEvaluation'}">评价表</router-link>
+          <router-link class="divHand" tag="div" :to="{name:'processTracking'}">顾客满意度评测</router-link>
         </div>
         <router-view></router-view>
       </div>
