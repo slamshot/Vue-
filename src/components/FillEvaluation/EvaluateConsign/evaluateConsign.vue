@@ -83,7 +83,8 @@ export default {
                     message: '委托成功',
                     type: 'success'
                 });
-                window.location.reload();
+                this.$store.state.data.callback();
+                
             }).catch((err) => {
                 // this.$message.error('委托失败');
             });
@@ -105,8 +106,6 @@ export default {
     },
     created:function(){// 组件创建后
         this.PlanName=this.$route.query.PlanName;
-        console.log("子子子");
-        
     },
     mounted:function(){// 组件加载完成
         // DOTO

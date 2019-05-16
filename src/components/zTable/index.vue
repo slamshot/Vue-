@@ -108,6 +108,8 @@ export default {
             }
             this.listLoading = true;
             this.getList(this.currentPage,this.pageSize,this.currentSort,this.currentFilters).then((res)=>{
+                console.log(res.data);
+                
                 let showPageBar = this.tableBaseConfig.showPageBar;
                 if(showPageBar == undefined ?true:showPageBar){
                     this.total = res.data.totalElements;

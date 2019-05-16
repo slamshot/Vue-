@@ -1,7 +1,7 @@
 <template>
     <div id="evaluateClientUser" class="content-height">
-        <z-table ref="table" :tableColumnConfig=tableColumnConfig :toolBarConfig=toolBarConfig
-        :tableBaseConfig=tableBaseConfig></z-table>
+        <z-table ref="table" :tableColumnConfig='tableColumnConfig' :toolBarConfig='toolBarConfig'
+        :tableBaseConfig='tableBaseConfig'></z-table>
         <router-view></router-view>
     </div>
 </template>
@@ -138,6 +138,7 @@ export default {
                                         type: 'warning'
                                     });
                                 }else{
+                                    this.$store.commit("setData",{callback:this.dialogCallback})
                                     this.$router.push(
                                         {
                                             name:'evaluateClientSec',
@@ -160,15 +161,16 @@ export default {
                             text:"委托",
                             icon:"el-icon-caret-right",
                             click:(row) => {
+                                this.$store.commit("setData",{callback:this.dialogCallback})
                                 // this.viewButtonClick(row[key],row.state);
-                                // if(row.type==0 && row.State!='finish'){
+                                if(row.type==0 && row.State!='finish'){
                                     this.$router.push({name:'evaluateConsign',query:{PlanName:row.PlanName,EvaluateId:row.EvaluateId,EvaluateListPKID:row.EvaluateListPKID}}); 
-                                // }else{
-                                //     this.$message({
-                                //         message: '根据该条目状态判定不可委托',
-                                //         type: 'warning'
-                                //     });
-                                // }
+                                }else{
+                                    this.$message({
+                                        message: '根据该条目状态判定不可委托',
+                                        type: 'warning'
+                                    });
+                                }
                             }
                         },
                         {
@@ -225,6 +227,10 @@ export default {
          */
         rowsSelectedAll(rows){
             
+        },
+        // 弹出框回调函数
+        dialogCallback(data){
+            this.$refs.table.refresh();
         },
         // 请求列表数据之前
         beforeGetListData(currentPage,pageSize,order,filters){
