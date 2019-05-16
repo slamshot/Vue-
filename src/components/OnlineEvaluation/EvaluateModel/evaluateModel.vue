@@ -124,20 +124,17 @@ export default {
                     if(res.status == 200){
                         // this.formData = res.data.main;
                         // this.formDataDetail = res.data.detail;
-                        let callback = this.$route.params.dialogCallback;
-                        if(callback){
-                            callback({type:this.type,data:res.data});
-                        }
+                        this.$store.state.data.callback({type:this.type,data:res.data});
                         if(mark == 0){
                             this.close();
                         }else{// 保存并使用
+                            this.$store.commit("setData",{data:res.data});
                             this.$router.push(
                                 {
-                                    path:'/evaluateClient',
                                     name:'evaluateClient',
-                                    params:{
+                                    query:{
                                         useType:'add',
-                                        data:res.data,
+                                        mark:0
                                     }
                                 }
                             );
@@ -199,8 +196,8 @@ export default {
     },
     created:function(){// 组件创建后
         // DOTO
-        this.type = this.$route.params.useType;
-        this.id = this.$route.params.id;
+        this.type = this.$store.state.data.useType;
+        this.id = this.$store.state.data.id;
         if(!Object.is(this.type,"add")){
             this.getData();
         }
