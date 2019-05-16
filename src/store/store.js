@@ -37,7 +37,9 @@ export const store = new Vuex.Store({
   },
   mutations:{
     setData(state,item){
-      // state.data
+      state.data = item;
+      console.log(state.data);
+      
     }
   }
 })

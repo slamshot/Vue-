@@ -2,6 +2,7 @@
     <div id="evaluatePlanList" class="content-height">
         <z-table ref="table" :tableColumnConfig=tableColumnConfig :toolBarConfig=toolBarConfig
         :tableBaseConfig=tableBaseConfig></z-table>
+        <router-view></router-view>
     </div>
 </template>
 <script>
@@ -184,7 +185,8 @@ export default {
          * dialogWidth；窗口宽度
          */
         addButtonClick(id){
-            DefaultButtons.addButton(pageUrl,routerName,this.dialogCallback);
+            this.$store.commit("setData",{callback:this.dialogCallback})
+            DefaultButtons.addButton(pageUrl,routerName);
         },
         /**
          * 修改按钮点击事件

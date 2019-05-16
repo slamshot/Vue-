@@ -2,6 +2,7 @@
     <div id="evaluateTargetList" class="content-height">
         <z-table ref="table" :tableColumnConfig=tableColumnConfig :toolBarConfig=toolBarConfig
         :tableBaseConfig=tableBaseConfig></z-table>
+        <router-view></router-view>
     </div>
 </template>
 <script>

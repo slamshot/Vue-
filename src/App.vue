@@ -1,18 +1,25 @@
 <template>
   <div id="app" :style="'height:'+appHeight+'px;'">
-      <online-evaluation></online-evaluation>
+      <!-- <online-evaluation></online-evaluation> -->
       <!-- <home></home> -->
-      <router-view></router-view>
+      <div id="bothAll" style="height:100%;">
+        <div id="firstJ">
+          <router-link class="divHand" tag="div" :to="{name:'onlineEvaluation'}">评价计划</router-link>
+          <router-link class="divHand" tag="div" :to="{name:'fillEvaluation'}">评价表</router-link>
+          <router-link class="divHand" tag="div" :to="{name:'fillEvaluation'}">评价表</router-link>
+        </div>
+        <router-view></router-view>
+      </div>
   </div>
 </template>
 
 <script>
-import OnlineEvaluation from './components/OnlineEvaluation'
+// import OnlineEvaluation from './components/OnlineEvaluation'
 import Home from './components/home/home.vue'
 export default {
   name: 'App',
   components:{
-      Home,OnlineEvaluation
+      Home
   },
   data:function(){
     return {
@@ -36,5 +43,21 @@ export default {
 body .el-table th.gutter{
   display: table-cell!important;
 }
-
+#bothAll{
+  display: flex;
+}
+#firstJ{
+  margin-right: 20px;
+  background: #333;
+  color: #fff;
+}
+.divHand{
+  cursor: pointer;
+  display: flex;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  border-bottom: 1px solid #ddd;
+}
 </style>

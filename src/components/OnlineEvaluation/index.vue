@@ -1,6 +1,6 @@
 <template>
-    <div id="evaluationManage" class="content-height">
-        <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
+    <div id="evaluationManage">
+        <!-- <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
             <el-tab-pane label="评价计划" name="first">
                 <evaluate-plan></evaluate-plan>
             </el-tab-pane>
@@ -13,18 +13,25 @@
             <el-tab-pane label="分发历史查询" name="fourth">
                 <evaluate-client></evaluate-client>
             </el-tab-pane>
-        </el-tabs>
+        </el-tabs> -->
+        <div id="nbgkmydDiv">
+            <router-link class="nbgkmydDivSon" tag="div" :to="{name:'evaluatePlanList'}">评价计划</router-link>
+            <router-link class="nbgkmydDivSon" tag="div" :to="{name:'evaluateTargetList'}">指标管理</router-link>
+            <router-link class="nbgkmydDivSon" tag="div" :to="{name:'evaluateModelList'}">模板表管理</router-link>
+            <router-link class="nbgkmydDivSon" tag="div" :to="{name:'evaluateClientList'}">分发历史查询</router-link>
+        </div>
+        <router-view></router-view>
     </div>
 </template>
 <script>
-import EvaluatePlan from './EvaluatePlan'
-import EvaluateTarget from './EvaluateTarget'
-import EvaluateModel from './EvaluateModel'
-import EvaluateClient from './EvaluateClient'
+// import EvaluatePlan from './EvaluatePlan'
+// import EvaluateTarget from './EvaluateTarget'
+// import EvaluateModel from './EvaluateModel'
+// import EvaluateClient from './EvaluateClient'
 export default {
     name:'evaluationManage',
     components:{
-        EvaluatePlan,EvaluateTarget,EvaluateModel,EvaluateClient
+        // EvaluatePlan,EvaluateTarget,EvaluateModel,EvaluateClient
     },
     props:{// 其他组件传入的值
        
@@ -37,6 +44,29 @@ export default {
     methods:{// 自定义方法
         handleClick(){
 
+        }
+    },
+    watch:{
+        $route(to,from){
+            let domArr=document.querySelector('#nbgkmydDiv').querySelectorAll('.nbgkmydDivSon');
+            // console.log(domArr);
+            for(let i=0;i<domArr.length;i++){
+                domArr[i].style.borderBottom='';
+            }
+            switch(to.name){
+                case "EvaluatePlan":
+                    domArr[0].style.borderBottom='2px solid blue';
+                    break;
+                case "EvaluateTarget":
+                    domArr[1].style.borderBottom='2px solid blue';
+                    break;
+                case "EvaluateModel":
+                    domArr[2].style.borderBottom='2px solid blue';
+                    break;
+                case "EvaluateClient":
+                    domArr[3].style.borderBottom='2px solid blue';
+                    break;
+            }
         }
     },
     /**
@@ -54,6 +84,8 @@ export default {
     },
     mounted:function(){// 组件加载完成
         // TODO
+        let domArr=document.querySelector('#nbgkmydDiv').querySelectorAll('.nbgkmydDivSon');
+        domArr[0].style.borderBottom='2px solid blue';
     },
     beforeUpdate:function(){// 组件数据更新之前
         // TODO
@@ -64,13 +96,21 @@ export default {
 }
 </script>
 <style>
-.el-tabs{
-    height: 100%;
+#evaluationManage{
+    height:100%;
+    width:100%
 }
-.el-tabs__content{
-    height: 100%;
+#nbgkmydDiv{
+    display: flex;
+    border-bottom: 1px solid #ddd;
+    height: 40px;
 }
-.el-tab-pane{
-    height: 100%;
+#nbgkmydDiv>div{
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 </style>

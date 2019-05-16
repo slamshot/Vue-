@@ -123,13 +123,15 @@ export default {
             
             if(this.$route.type==0){
                 saveFillContent(data).then((result) => {
-                    this.$router.push({name:'fillEvaluation'})
+                    this.$router.back();
+                    window.location.reload();
                 }).catch((err) => {
                     
                 });
             }else{
                 saveConsignFillContent(data).then((result) => {
-                    this.$router.push({name:'fillEvaluation'})
+                    this.$router.back();
+                    window.location.reload();
                 }).catch((err) => {
                     
                 });
@@ -156,13 +158,15 @@ export default {
             
             if(this.$route.query.type==0){
                 saveFillContent(data).then((result) => {
-                    this.$router.push({name:'fillEvaluation'})
+                    this.$router.back();
+                    window.location.reload();
                 }).catch((err) => {
                     
                 });
             }else{
                 saveConsignFillContent(data).then((result) => {
-                    this.$router.push({name:'fillEvaluation'})
+                    this.$router.back();
+                    window.location.reload();
                 }).catch((err) => {
                     
                 });
