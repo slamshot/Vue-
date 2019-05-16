@@ -7,7 +7,6 @@
 </template>
 <script>
 import ZTable from '../../zTable'
-import DefaultButtons from '../../zTable/zTable.js'
 import SearchPage from './search'
 import {getList,deleted} from './customerSatisfactionList'
 import { formatDate } from '@/utils/common.js'

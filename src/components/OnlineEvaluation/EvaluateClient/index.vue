@@ -7,13 +7,10 @@
 </template>
 <script>
 import ZTable from '../../zTable'
-import DefaultButtons from '../../zTable/zTable.js'
 import SearchPage from './search'
 import {getList,deleted} from './evaluateClient.js'
 import { formatDate } from '@/utils/common.js'
 
-// 表单的路由路径
-const pageUrl = '/evaluateClient'
 // 路由的名称
 const routerName = 'evaluateClient'
 // 主键字段
@@ -41,8 +38,7 @@ export default {
             // 列表的其他配置
             tableBaseConfig:{
                 tableHeight:'calc(100% - 159.2px)',
-                // 默认排序
-                currentSort:[{prop: 'id', order: 'descending'}]
+                opertionColumnWidth:150,
             },
             // 列表配置
             tableColumnConfig:[
@@ -95,7 +91,7 @@ export default {
                     id:"doneUserCount",
                     text:"被评价人数",
                     align:"center",
-                    width:70,
+                    width:80,
                     sortable:true
                 },
                 {
@@ -110,14 +106,6 @@ export default {
             toolBarConfig:{
                 // 列表上方按钮
                 top:[
-                    {
-                        id:"refresh",
-                        text:"刷新",
-                        icon:"el-icon-refresh",
-                        click:(row) => {
-                            this.$refs.table.refresh();
-                        }
-                    }
                 ],
                 // 列表行内按钮
                 eachRow:{
@@ -155,9 +143,8 @@ export default {
                 case '暂存':
                     this.$router.push(
                         {
-                            path:'/evaluateClient',
                             name:'evaluateClient',
-                            params:{
+                            query:{
                                 useType:'modify',
                                 id
                             }
@@ -173,9 +160,8 @@ export default {
                 case '完成':
                     this.$router.push(
                         {
-                            path:'/evaluateClientView',
                             name:'evaluateClientView',
-                            params:{
+                            query:{
                                 useType:'view',
                                 id
                             }

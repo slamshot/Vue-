@@ -165,6 +165,7 @@ export default {
             formRules:Rules,
             // 表单类型 add modify view
             type:'',
+            mark:'',// 0 从表单进入 1 从列表进入
             // 主表主键值
             id:'',
             // 主表数据
@@ -186,7 +187,16 @@ export default {
     methods:{// 自定义方法
         //关闭窗口返回的页面
         close(){
-            this.$router.push('/');
+            if(Object.is(this.type,"add")){
+                if(this.mark == 1){
+                    this.$router.back();
+                }else{
+                    this.$router.push({name:"evaluateModelList"});
+                }
+                
+            }else{
+                this.$router.back();
+            }
         },
         departDialogCallback(data){
             this.formDataDetail_group = [...this.formDataDetail_group,...data];
@@ -285,13 +295,12 @@ export default {
                         headDetail:this.formDataDetail_index,
                         listDetail:newFormDataDetail_evaluate
                     }
+                    this.$store.commit("setData",{data});
                     this.$router.push(
                         {
-                            path:'/evaluateClientView',
                             name:'evaluateClientView',
-                            params:{
-                                useType:'add',
-                                data
+                            query:{
+                                useType:this.type,
                             }
                         }
                     );
@@ -315,13 +324,14 @@ export default {
     },
     created:function(){// 组件创建后
         // DOTO
-        this.type = this.$route.params.useType;
-        this.id = this.$route.params.id;
+        this.type = this.$route.query.useType;
         if(!Object.is(this.type,"add")){
+            this.id = this.$route.query.id;
             this.getData();
         }else{
+            this.mark = this.$route.query.mark;
             // 获取模板数据
-            let data = this.$route.params.data;
+            let data = this.$store.state.data.data;
             // 获取计划信息
             getCurrentEvaluate('内部客户满意度评测').then((res) => {
                 if(res.status == 200){

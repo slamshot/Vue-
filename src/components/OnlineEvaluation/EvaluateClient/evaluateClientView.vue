@@ -134,7 +134,13 @@ export default {
     methods:{// 自定义方法
         //关闭窗口返回的页面
         close(){
-            this.$router.push('/');
+            console.log(this.type);
+            
+            if(Object.is(this.type,"add")){
+                this.$router.push({name:"evaluateModelList"});
+            }else{
+                this.$router.push({name:"evaluateClientList"});
+            }
         },
         // 表单提交前
         beforeSubmit(){
@@ -173,17 +179,20 @@ export default {
         },
         async getDataToview(){
             if(!Object.is(this.type,"add")){
+                this.id = this.$route.query.id;
                 await get(this.id).then((res) => {
                     this.formData = res.data.main;
                     this.formDataDetail_target = res.data.headDetail;
                     this.formDataDetail_evaluate = res.data.listDetail; 
                 });
             }else{
-                this.formData = this.$route.params.data.main;
-                this.formDataDetail_target = this.$route.params.data.headDetail;
-                this.formDataDetail_evaluate = this.$route.params.data.listDetail;
+                let data = this.$store.state.data.data;
+                console.log(data);
+                
+                this.formData = data.main;
+                this.formDataDetail_target = data.headDetail;
+                this.formDataDetail_evaluate = data.listDetail;
                 this.formData.groupName = getLoginInfo('groupName');
-                console.log(this.$route.params);
             }
             let tableData = [];
             this.formData.inputDate = formatDate(this.formData.inputDate);
@@ -236,8 +245,7 @@ export default {
     },
     created:function(){// 组件创建后
         // DOTO
-        this.type = this.$route.params.useType;
-        this.id = this.$route.params.id;
+        this.type = this.$route.query.useType;
         
     },
     mounted:function(){// 组件加载完成

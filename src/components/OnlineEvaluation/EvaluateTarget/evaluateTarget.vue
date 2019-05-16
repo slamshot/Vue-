@@ -46,11 +46,7 @@ export default {
             // 弹出窗口宽度 默认为屏幕的50%
             dialogWidth:"50%",
             // 评价类别
-            evaluKindOptions:[],
-            dialogCallback:function(){},
-            callback:function(){
-                this.dialogCallback({type:this.type,data:this.formData});
-            }
+            evaluKindOptions:[]
         }
     },
     methods:{// 自定义方法
@@ -70,7 +66,7 @@ export default {
                     let data = Object.assign({}, this.formData,getLoginInfo());
                     save(data).then((res)=>{
                         if(res.status == 200){
-                            this.callback();
+                            this.$store.state.data.callback({type:this.type,data:res.data});
                             this.close();
                         }
                     });
@@ -97,9 +93,8 @@ export default {
     },
     created:function(){// 组件创建后
         // DOTO
-        this.type = this.$route.params.useType;
-        this.id = this.$route.params.id;
-        this.dialogCallback = this.$route.params.dialogCallback;
+        this.type = this.$store.state.data.useType;
+        this.id = this.$store.state.data.id;
         if(!Object.is(this.type,"add")){
             this.getData();
         }

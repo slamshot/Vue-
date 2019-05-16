@@ -7,13 +7,10 @@
 </template>
 <script>
 import ZTable from '../../zTable'
-import DefaultButtons from '../../zTable/zTable.js'
 import SearchPage from './search'
 import {getList,deleted} from './evaluateClientList.js'
 import { formatDate } from '@/utils/common.js'
 
-// 表单的路由路径
-const pageUrl = '/evaluateClientList'
 // 路由的名称
 const routerName = 'evaluateClientList'
 // 主键字段
@@ -41,8 +38,6 @@ export default {
             // 列表的其他配置
             tableBaseConfig:{
                 tableHeight:'calc(100% - 120px)',
-                // 默认排序
-                currentSort:[{prop: 'evaluateTname', order: 'descending'}]
             },
             // 列表配置
             tableColumnConfig:[

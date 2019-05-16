@@ -117,7 +117,7 @@ export default {
                     data.flag = btnType;
                     save(data).then((res)=>{
                         if(res.status == 200){
-                            this.$store.state.data.callback();
+                            this.$store.state.data.callback({type:this.type,data:res.data});
                             this.close();
                         }
                     });
@@ -146,8 +146,8 @@ export default {
     },
     created:function(){// 组件创建后
         // DOTO
-        this.type = this.$route.params.useType;
-        this.id = this.$route.params.id;
+        this.type = this.$store.state.data.useType;
+        this.id = this.$store.state.data.id;
         if(!Object.is(this.type,"add")){
             this.getData();
         }

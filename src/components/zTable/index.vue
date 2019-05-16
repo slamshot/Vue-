@@ -12,7 +12,7 @@
                 <el-table-column align="center" type="index" width="50" label="序号"></el-table-column>
                 <el-table-column v-for="(item,index) in tableColumnConfig" :key="index" :prop="item.id" :label="item.text" 
                 :sortable="item.sortable?'custom':false" :align="item.align" :min-width="item.width" :formatter="item.formatter"></el-table-column>
-                <el-table-column align="center" label="操作" width="200" v-if="tableBaseConfig.showOperation == undefined?true:tableBaseConfig.showOperation">
+                <el-table-column align="center" label="操作" :width="opertionColumnWidth" v-if="tableBaseConfig.showOperation == undefined?true:tableBaseConfig.showOperation">
                     <template slot-scope="scope">
                         <el-button v-for="item in toolBarConfig.eachRow.default" :key="item.id" :id="item.id" type="primary" :style="item.style" size="small" :icon="item.icon" @click="item.click(scope.row)" :title="item.text"></el-button>
                         <el-dropdown trigger="click" v-show="toolBarConfig.eachRow.dropdown.length > 0">
@@ -95,6 +95,8 @@ export default {
             pageSize: this.tableBaseConfig.pageSize || 15,
             // 默认排序
             currentSort:this.tableBaseConfig.currentSort || [],
+            // 操作列宽
+            opertionColumnWidth:this.tableBaseConfig.opertionColumnWidth || 200,
         }
     },
     methods:{

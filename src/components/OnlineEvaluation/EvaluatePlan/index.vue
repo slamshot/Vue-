@@ -7,14 +7,11 @@
 </template>
 <script>
 import ZTable from '../../zTable'
-import DefaultButtons from '../../zTable/zTable.js'
 import SearchPage from './search'
 import {getList,deleted,complete} from './evaluatePlan.js'
 import { formatDate } from '@/utils/common.js'
 import { planStates } from '../onlineEvaluation.js'
 
-// 表单的路由路径
-const pageUrl = '/evaluatePlan'
 // 路由的名称
 const routerName = 'evaluatePlan'
 // 主键字段
@@ -42,8 +39,6 @@ export default {
             // 列表的其他配置
             tableBaseConfig:{
                 tableHeight:'calc(100% - 120px)',
-                // 默认排序
-                currentSort:[{prop: 'pkid', order: 'descending'}]
             },
             // 列表配置
             tableColumnConfig:[
@@ -130,14 +125,6 @@ export default {
                                 }
                             });
                         }
-                    },{
-                        id:"refresh",
-                        text:"刷新",
-                        style:'background: #70d5e9;border-color: #70d5e9;color: #fff;',
-                        icon:"el-icon-refresh",
-                        click:(row) => {
-                            this.$refs.table.refresh();
-                        }
                     }
                 ],
                 // 列表行内按钮
@@ -184,9 +171,9 @@ export default {
          * routerName：路由名称
          * dialogWidth；窗口宽度
          */
-        addButtonClick(id){
-            this.$store.commit("setData",{callback:this.dialogCallback})
-            DefaultButtons.addButton(pageUrl,routerName);
+        addButtonClick(){
+            this.$store.commit("setData",{useType:"add",callback:this.dialogCallback});
+            this.$router.push({name:routerName});
         },
         /**
          * 修改按钮点击事件
@@ -195,7 +182,8 @@ export default {
          * dialogWidth；窗口宽度
          */
         modifyButtonClick(id){
-            DefaultButtons.modifyButton(pageUrl,routerName,id,this.dialogCallback);
+            this.$store.commit("setData",{useType:"modify",id,callback:this.dialogCallback});
+            this.$router.push({name:routerName});
         },
         /**
          * 浏览按钮点击事件
@@ -204,7 +192,8 @@ export default {
          * dialogWidth；窗口宽度
          */
         viewButtonClick(id){
-            DefaultButtons.viewButton(pageUrl,routerName,id);
+            this.$store.commit("setData",{useType:"view",id,callback:this.dialogCallback});
+            this.$router.push({name:routerName});
         },
         // 删除按钮点击事件
         deleteButtonClick(id,flag){

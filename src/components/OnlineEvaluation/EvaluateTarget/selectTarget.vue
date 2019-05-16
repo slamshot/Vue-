@@ -77,7 +77,9 @@ export default {
         getData(){
             
             getEvaluateTargetByEvaluKind('内部客户满意度评测').then((res) => {
-                this.tableData = res.data;
+                if(res.status == 200){
+                    this.tableData = res.data;
+                }
             });
         },
         // 行选中事件
