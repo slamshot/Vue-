@@ -43,7 +43,7 @@ export function deleted(pkid){
 
 export function getEvaluateTargetByEvaluKind(evaluKind){
     return request({
-        url: '/evaluateTarget/getByEvalukind',
+        url: '/evaluateTarget/getByEvaluKind',
         params:{
             evaluKind
         },
