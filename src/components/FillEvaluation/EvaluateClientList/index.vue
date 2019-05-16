@@ -137,12 +137,12 @@ export default {
                             // disabled:!row.state=='start',
                             click:(row) => {
                                 console.log(row);
-                                // if(row.State!='start'){
-                                //     this.$message({
-                                //         message: '该条目已填写完成',
-                                //         type: 'warning'
-                                //     });
-                                // }else{
+                                if(row.State=='finish'){
+                                    this.$message({
+                                        message: '该条目已填写完成',
+                                        type: 'warning'
+                                    });
+                                }else{
                                     this.$router.push(
                                         {
                                             name:'evaluateClientSec',
@@ -157,7 +157,7 @@ export default {
                                             }
                                         }
                                     ); 
-                                // }
+                                }
                             }
                         },
                         {
@@ -165,16 +165,15 @@ export default {
                             text:"委托",
                             icon:"el-icon-caret-right",
                             click:(row) => {
-                                //this.viewButtonClick(row[key],row.state);
-                                console.log(row);
-                                if(row.type==0){
+                                // this.viewButtonClick(row[key],row.state);
+                                // if(row.type==0 && row.State!='finish'){
                                     this.$router.push({name:'evaluateConsign',query:{PlanName:row.PlanName,EvaluateId:row.EvaluateId,EvaluateListPKID:row.EvaluateListPKID}}); 
-                                }else{
-                                    this.$message({
-                                        message: '该条目不可再次委托',
-                                        type: 'warning'
-                                    });
-                                }
+                                // }else{
+                                //     this.$message({
+                                //         message: '根据该条目状态判定不可委托',
+                                //         type: 'warning'
+                                //     });
+                                // }
                             }
                         },
                         {
@@ -188,7 +187,7 @@ export default {
                                         query:{
                                             EvaluKind:row.EvaluKind,
                                             EvaluateTname:row.EvaluateTname,
-                                            StartDate:row.StartDate,
+                                            StartDate:row.InputDate,
                                             state:'look',
                                             id:row.EvaluateId,
                                             EvaluateListPKID:row.EvaluateListPKID,

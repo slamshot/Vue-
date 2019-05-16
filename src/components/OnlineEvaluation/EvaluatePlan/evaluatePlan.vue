@@ -87,16 +87,12 @@ export default {
             dialogWidth:"50%",
             // 评价类别
             evaluKindOptions:[],
-            dialogCallback:function(){},
-            callback:function(){
-                this.dialogCallback({type:this.type,data:this.formData});
-            }
         }
     },
     methods:{// 自定义方法
         // 关闭弹出框
         close(){
-            this.$router.back(-1);
+            this.$router.back();
         },
         // 获取表单数据后事件
         afterGetData(){
@@ -121,7 +117,7 @@ export default {
                     data.flag = btnType;
                     save(data).then((res)=>{
                         if(res.status == 200){
-                            this.callback();
+                            this.$store.state.data.callback();
                             this.close();
                         }
                     });
@@ -152,7 +148,6 @@ export default {
         // DOTO
         this.type = this.$route.params.useType;
         this.id = this.$route.params.id;
-        this.dialogCallback = this.$route.params.dialogCallback;
         if(!Object.is(this.type,"add")){
             this.getData();
         }
@@ -161,6 +156,8 @@ export default {
                 this.evaluKindOptions = res.data;
             }
         })
+        console.log('dialog');
+        
     },
     mounted:function(){// 组件加载完成
         // TODO

@@ -50,7 +50,6 @@ export default {
         },
         // 添加委托人
         callback(data){
-            console.log(data);
             this.data=data;
             if(data.length>0){
                 let peopleArr=[];
@@ -62,7 +61,6 @@ export default {
             }
         },
         confirm(){
-            console.log(this.data);
             let apiData={};
             apiData.doUserCount=this.data.length;
             let doFullNameArr=[];
@@ -78,14 +76,14 @@ export default {
             apiData.doUserNo=doUserNoStr;
             apiData.evaluateId=this.$route.query.EvaluateId;
             apiData.evaluateListPKID=this.$route.query.EvaluateListPKID;
-            console.log(apiData);
             
             saveConsignInfo(apiData).then((result) => {
-                this.$router.push({name:'fillEvaluation'})
+                this.$router.back();
                 this.$message({
                     message: '委托成功',
                     type: 'success'
                 });
+                window.location.reload();
             }).catch((err) => {
                 // this.$message.error('委托失败');
             });
@@ -107,6 +105,7 @@ export default {
     },
     created:function(){// 组件创建后
         this.PlanName=this.$route.query.PlanName;
+        console.log("子子子");
         
     },
     mounted:function(){// 组件加载完成
