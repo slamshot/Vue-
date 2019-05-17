@@ -112,14 +112,6 @@ export default {
             toolBarConfig:{
                 // 列表上方按钮
                 top:[
-                    {
-                        id:"refresh",
-                        text:"刷新",
-                        icon:"el-icon-refresh",
-                        click:(row) => {
-                            this.$refs.table.refresh();
-                        }
-                    }
                 ],
                 // 列表行内按钮
                 eachRow:{
@@ -235,9 +227,9 @@ export default {
         // 请求列表数据之前
         beforeGetListData(currentPage,pageSize,order,filters){
             if(filters){
-                filters = Object.assign(filters,{doUserNo:'10004'});
+                filters = Object.assign(filters,{doUserNo:'10002'});
             }else{
-                filters = {doUserNo:'10004'};
+                filters = {doUserNo:'10002'};
             }
         }
     },
@@ -258,7 +250,7 @@ export default {
         }
     },
     created:function(){// 组件创建后
-       console.log(111111111);
+       
     },
     mounted:function(){// 组件加载完成
         // DOTO
