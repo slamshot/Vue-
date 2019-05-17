@@ -92,8 +92,8 @@ export default {
                 },
                 method: 'GET',
                 headers: {
-                    'JSESSIONID':'745597CB1248A7801A968B6466A063AC',
-                    'io':'F3AOkbjuesRlZFyOAAQu'
+                    'JSESSIONID':'31889B092D96475319A48AAAA08CEADA',
+                    'io':'b7ekeBihabMR__zIAAQz'
                 }
             }
             request(requestParams).then((res) => {

@@ -148,7 +148,7 @@ export default {
         handleCb(index,row){
             console.log(row);
             sendEmail().then((result) => {
-                if(res.status == 200){
+                if(result.status == 200){
                     this.$message({
                         type: 'success',
                         message: '发送邮件成功!'

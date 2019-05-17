@@ -188,11 +188,7 @@ export default {
         },
         // 请求列表数据之前
         beforeGetListData(currentPage,pageSize,order,filters){
-            if(filters){
-                filters = Object.assign(filters,{doUserNo:'10004'});
-            }else{
-                filters = {doUserNo:'10004'};
-            }
+            filters.state = '分发,完成,废弃';
         }
     },
     /**

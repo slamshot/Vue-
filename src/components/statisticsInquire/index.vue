@@ -5,8 +5,9 @@
                 <evaluate-client-list></evaluate-client-list>
             </el-tab-pane>
         </el-tabs> -->
-        <div id="gcgzDiv">
-            <router-link class="gcgzDivSon" tag="div" :to="{name:'processTracking'}">顾客满意度评测</router-link>
+        <div id="tjcxDiv">
+            <router-link class="tjcxDivSon" tag="div" :to="{name:'statisticsInquire'}">统计预处理</router-link>
+            <router-link class="tjcxDivSon" tag="div" :to="{name:'customerSatisfactionAssessment'}">顾客满意度测评</router-link>
         </div>
         <router-view></router-view>
     </div>
@@ -43,7 +44,7 @@ export default {
     },
     watch:{
         $route(to,from){
-            let domArr=document.querySelector('#gcgzDiv').querySelectorAll('.gcgzDivSon');
+            let domArr=document.querySelector('#tjcxDiv').querySelectorAll('.tjcxDivSon');
             
             for(let i=0;i<domArr.length;i++){
                 domArr[i].style.borderBottom='';
@@ -52,8 +53,11 @@ export default {
             console.log(to.name);
             
             switch(to.name){
-                case "customerSatisfactionList":
+                case "statisticalPreprocessingList":
                     domArr[0].style.borderBottom='2px solid #66b1ff';
+                    break;
+                case "customerSatisfactionAssessment":
+                    domArr[1].style.borderBottom='2px solid #66b1ff';
                     break;
             }
         }
@@ -64,7 +68,7 @@ export default {
     },
     mounted:function(){// 组件加载完成
         // TODO
-        let domArr=document.querySelector('#gcgzDiv').querySelectorAll('.gcgzDivSon')
+        let domArr=document.querySelector('#tjcxDiv').querySelectorAll('.tjcxDivSon')
         
         domArr[0].style.borderBottom='2px solid #66b1ff';
     },
@@ -91,12 +95,12 @@ export default {
     height:100%;
     width:100%
 }
-#gcgzDiv{
+#tjcxDiv{
     display: flex;
     border-bottom: 1px solid #ddd;
     height: 40px;
 }
-#gcgzDiv>div{
+#tjcxDiv>div{
     cursor: pointer;
     display: flex;
     justify-content: center;

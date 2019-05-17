@@ -32,6 +32,13 @@ export const constantRouterMap = [
       { path: '/processTracking/customerSatisfactionView', component: () => import('../../components/processTracking/customerSatisfactionView/customerSatisfactionView.vue'),name: 'customerSatisfactionView'},
     ]},
   ]},
+  { path: '/statisticsInquire', component: () => import('../../components/statisticsInquire'),name: 'statisticsInquire',redirect:{name:'statisticalPreprocessingList'} ,children:[
+    { path: '/statisticsInquire/statisticalPreprocessingList', component: () => import('../../components/statisticsInquire/statisticalPreprocessingList'),name: 'statisticalPreprocessingList' ,children:[
+      { path: '/statisticsInquire/statisticalPreprocessingView', component: () => import('../../components/statisticsInquire/statisticalPreprocessingView/statisticalPreprocessingView.vue'),name: 'statisticalPreprocessingView'},
+      { path: '/statisticsInquire/sendStatisticsTask', component: () => import('../../components/statisticsInquire/sendStatisticsTask/sendStatisticsTask.vue'),name: 'sendStatisticsTask'},
+    ]},
+    {path:'/statisticsInquire/customerSatisfactionAssessment',component: () => import ('../../components/statisticsInquire/customerSatisfactionAssessment'),name:'customerSatisfactionAssessment'}
+  ]},
 ]
 
 export default new Router({
