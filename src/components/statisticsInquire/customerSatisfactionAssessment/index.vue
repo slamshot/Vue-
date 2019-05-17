@@ -70,7 +70,7 @@
         </div>
         <footer>
             <el-button @click="confirm" type="primary">确定</el-button>
-            <el-button>清空</el-button>
+            <el-button @click="clear">清空</el-button>
         </footer>
     </div>
 </template>
@@ -113,8 +113,15 @@ export default {
                     }).catch((err) => {
                         
                     });
+                }else{
+                    this.$message({
+                        message: '请选择初始年度选项!',
+                        type: 'warning'
+                    });
                 }
             }
+            console.log(111);
+            
         },
         // 初始年度变化
         startYearChange(){
@@ -221,6 +228,14 @@ export default {
                 });
                 return false;
             }
+        },
+        // 清空
+        clear(){
+            this.startYear='';
+            this.endYear='';
+            this.evaluationForm='';
+            this.evaluKind='';
+            this.specificTarget='';
         }
     },
     /**
@@ -301,6 +316,7 @@ export default {
         height: 50px;
         width: 900px;
         align-items: center;
+        margin-top: 10px;
     }
     footer button{
         margin-right: 20px;

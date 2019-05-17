@@ -19,12 +19,13 @@ export function gets(data){
 
 // 保存已选评价表
 export function send(data){
+    
     return request({
         url: '/evaluateClientStatis/task/send',
-        data:JSON.stringify({
+        data:JSON.stringify(
             // 条件信息
-            evaluateTask:data
-        }),
+            data
+        ),
         transformRequest: [(data) => {
             return data
         }],

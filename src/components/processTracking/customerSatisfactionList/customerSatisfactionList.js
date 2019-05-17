@@ -20,3 +20,11 @@ export function deleted(id){
         method: 'DELETE'
     })
 }
+
+//废弃计划
+export function discard(id){
+    return request({
+        url: '/evaluateClient/discard/'+id,
+        method: 'DELETE'
+    })
+}

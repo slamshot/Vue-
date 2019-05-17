@@ -89,5 +89,6 @@ export default {
 #searchFrom{
     display: flex;
     justify-content: flex-end;
+    padding-right: 60px;
 }
 </style>

@@ -8,7 +8,7 @@
 <script>
 import ZTable from '../../zTable'
 import SearchPage from './search'
-import {getList,deleted} from './customerSatisfactionList'
+import {getList,deleted,discard} from './customerSatisfactionList'
 import { formatDate } from '@/utils/common.js'
 
 // 表单的路由路径
@@ -37,8 +37,11 @@ export default {
     },
     data:function(){// 自定义变量
         return {
+            // 单选当前行
+            nowrow:{},
             // 列表的其他配置
             tableBaseConfig:{
+                // selectModel:"Multi",
                 tableHeight:'calc(100% - 120px)',
                 // 默认排序
                 currentSort:[{prop: 'evaluateTname', order: 'descending'}]
@@ -95,6 +98,27 @@ export default {
             toolBarConfig:{
                 // 列表上方按钮
                 top:[
+                    {
+                        id:"refresh",
+                        text:"废止当前计划",
+                        icon:"el-icon-s-promotion",
+                        click:() => {
+                            console.log(this.nowrow);
+                            discard(this.nowrow.id).then((result) => {
+                                if(result.status==200){
+                                    this.$message({
+                                        type: 'success',
+                                        message: '废弃成功!'
+                                    });
+                                    this.$refs.table.refresh();
+                                }else{
+                                    this.$message.error('废弃失败!');
+                                }
+                            }).catch((err) => {
+                                
+                            });
+                        }
+                    }
                 ],
                 // 列表行内按钮
                 eachRow:{
@@ -113,14 +137,16 @@ export default {
                                     type: 'warning'
                                 }).then(() => {
                                     deleted(row.id).then((result) => {
-                                        this.$message({
-                                            type: 'success',
-                                            message: '删除成功!'
-                                        });
-                                        this.$refs.table.refresh();
-                                    }).catch((err) => {
-                                        
-                                    });
+                                        if(result.status==200){
+                                            this.$message({
+                                                type: 'success',
+                                                message: '删除成功!'
+                                            });
+                                            this.$refs.table.refresh();
+                                        }else{
+                                            this.$message.error('删除失败!');
+                                        }
+                                    })
                                 }).catch(() => {
                                     this.$message({
                                         type: 'info',
@@ -158,8 +184,10 @@ export default {
          * currentRow:当前行 oldCurrentRow:上一次选中的行
          */
         rowSelected(currentRow,oldCurrentRow){
-            
+            this.nowrow=currentRow
+            console.log(currentRow);
         },
+        
         /**
          * 行选中事件:多选时触发
          * rows：选中的所有行
@@ -214,6 +242,5 @@ export default {
 }
 </script>
 
-<style>
-
+<style scope>
 </style>

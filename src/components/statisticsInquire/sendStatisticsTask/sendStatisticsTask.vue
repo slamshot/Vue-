@@ -51,10 +51,11 @@ export default {
                 if(this.data[i].id==this.value[i]){
                     saveData.planPKID=this.data[i].planPKID;
                     saveData.evaluKind=this.data[i].evaluKind;
-                    saveData.planPKID=this.data[i].evaluateTname;
+                    saveData.evaluateTname=this.data[i].evaluateTname;
                     break;
                 }
             }
+            
             send(saveData).then((result) => {
                 if(result.status == 200){
                     this.$message({
