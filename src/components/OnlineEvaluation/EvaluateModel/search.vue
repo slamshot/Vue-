@@ -1,5 +1,5 @@
 <template>
-    <div id="search">
+    <div id="search" style="text-align:right;padding-right:250px;">
         <el-form :inline="true" :model="searchData" class="demo-form-inline">
             <el-form-item>
                 <el-select v-model="searchData.evaluKind" placeholder="请选择评价类别" size="small" style="width:180px;" clearable>
@@ -17,10 +17,10 @@
             </el-form-item>
             <el-form-item>
                 <el-date-picker size="small" v-model="searchData.dateFrame" type="daterange" value-format="yyyy-MM-dd"
-                range-separator="至" start-placeholder="创建开始日期" end-placeholder="创建结束日期" style="width:220px;"></el-date-picker>
+                range-separator="至" start-placeholder="创建开始日期" end-placeholder="创建结束日期" style="width:250px;"></el-date-picker>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="searching" size="small" icon="el-icon-search">查询</el-button>
+                <el-button type="primary" @click="searching" size="small" icon="el-icon-search">筛选</el-button>
                 <!-- <el-button type="primary" @click="clear" size="small" icon="el-icon-refresh">清空</el-button> -->
             </el-form-item>
         </el-form>
@@ -86,6 +86,5 @@ export default {
     }
 }
 </script>
-<style>
-
+<style scope>
 </style>

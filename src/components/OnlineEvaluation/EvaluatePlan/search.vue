@@ -15,7 +15,7 @@
                 </el-select>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="searching" size="small" icon="el-icon-search">查询</el-button>
+                <el-button type="primary" @click="searching" size="small" icon="el-icon-search">筛选</el-button>
                 <!-- <el-button type="primary" @click="clear" size="small" icon="el-icon-refresh">清空</el-button> -->
             </el-form-item>
         </el-form>
@@ -87,6 +87,7 @@ export default {
 </script>
 <style scoped>
 .search{
-    text-align: center;
+    text-align: right;
+    padding-right: 250px;
 }
 </style>

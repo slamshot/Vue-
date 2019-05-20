@@ -43,6 +43,7 @@ export const constantRouterMap = [
 
 export default new Router({
   mode: 'history', // 后端支持可开
+  linkActiveClass: 'active',
   scrollBehavior: () => ({ y: 0 }),
   // 每次滚动后定位到页面的最顶端y=0
   routes: constantRouterMap

@@ -39,6 +39,7 @@ export default {
         return {
             // 列表的其他配置
             tableBaseConfig:{
+                opertionColumnWidth:62,
                 tableHeight:'calc(100% - 120px)',
                 // 默认排序
                 currentSort:[{prop: 'evaluateTname', order: 'descending'}]
@@ -49,7 +50,7 @@ export default {
                     id:"EvaluateTname",
                     text:"评价表名称",
                     align:"center",
-                    width:150,
+                    width:170,
                     sortable:true
                 },
                 {
@@ -63,7 +64,7 @@ export default {
                     id:"LevelType",
                     text:"评价方式",
                     align:"center",
-                    width:150,
+                    width:130,
                     sortable:true,
                 },
                 {
@@ -77,7 +78,7 @@ export default {
                     id:"InputDate",
                     text:"制表时间",
                     align:"center",
-                    width:80,
+                    width:90,
                     sortable:true,
                     formatter:function(row,column){
                         return formatDate(row.InputDate);
@@ -94,7 +95,7 @@ export default {
                     id:"DoneUserCount",
                     text:"被评价人数",
                     align:"center",
-                    width:60,
+                    width:80,
                     sortable:true,
                 },
                 {
@@ -120,6 +121,7 @@ export default {
                         id:"refresh",
                         text:"发送统计任务",
                         icon:"el-icon-s-promotion",
+                        style:'background: #70d5e9;border-color: #70d5e9;color: #fff;',
                         click:(row) => {
                             this.$store.commit("setData",{callback:this.dialogCallback});
                             this.$router.push({name:'sendStatisticsTask'});

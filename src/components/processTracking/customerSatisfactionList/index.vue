@@ -102,6 +102,7 @@ export default {
                         id:"refresh",
                         text:"废止当前计划",
                         icon:"el-icon-s-promotion",
+                        style:'background: #70d5e9;border-color: #70d5e9;color: #fff;',
                         click:() => {
                             console.log(this.nowrow);
                             discard(this.nowrow.id).then((result) => {

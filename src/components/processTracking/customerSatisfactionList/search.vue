@@ -5,7 +5,7 @@
                 <el-col :span="6" style="width:250px;">
                     <el-form-item label-width="100px">
                         <el-date-picker size="small" v-model="searchData.dateFrame" type="daterange" range-separator="至" 
-                        start-placeholder="开始时间" end-placeholder="结束时间" style="width:230px;"></el-date-picker>
+                        start-placeholder="制表时间" end-placeholder="制表时间" style="width:230px;"></el-date-picker>
                     </el-form-item>
                 </el-col>
                 <el-col :span="6" style="width:300px;">
@@ -13,10 +13,10 @@
                         <el-input v-model="searchData.evaluateTname" placeholder="请输入评测表名称" size="small" style="width:260px;" clearable></el-input>
                     </el-form-item>
                 </el-col>
-                <el-col :span="4">
+                <el-col :span="3">
                     <!-- <el-button type="primary" @click="clear" size="small" icon="el-icon-refresh">清空</el-button> -->
                     <el-button style="margin-top: 4px;" type="primary" @click="searching" size="small" icon="el-icon-search">查询</el-button>
-                    <el-button style="margin-top: 4px;" type="primary" @click="clearFrom" size="small" icon="el-icon-circle-close">清空</el-button>
+                    <!-- <el-button style="margin-top: 4px;" type="primary" @click="clearFrom" size="small" icon="el-icon-circle-close">清空</el-button> -->
                 </el-col>
             </el-row>
         </el-form>
@@ -48,9 +48,9 @@ export default {
         //     };
         // }
         // 清空
-        clearFrom(){
-            this.searchData={};
-        }
+        // clearFrom(){
+        //     this.searchData={};
+        // }
     },
     /**
      * 计算属性（自定义方法）
@@ -89,6 +89,6 @@ export default {
 #searchFrom{
     display: flex;
     justify-content: flex-end;
-    padding-right: 60px;
+    padding-right: 10%;
 }
 </style>

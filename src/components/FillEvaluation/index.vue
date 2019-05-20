@@ -43,6 +43,7 @@ export default {
     },
     watch:{
         $route(to,from){
+            
             let domArr=document.querySelector('#pjbDiv').querySelectorAll('.pjbDivSon');
             
             for(let i=0;i<domArr.length;i++){

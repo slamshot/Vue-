@@ -39,7 +39,7 @@ export default {
   },
   watch:{
     $route(to,from){
-      console.log(to.name);
+      // console.log(to.name);
     }
   }
 }
@@ -54,7 +54,7 @@ body .el-table th.gutter{
 }
 #firstJ{
   margin-right: 20px;
-  background: #333;
+  background: #66b1ff;
   color: #fff;
 }
 .divHand{

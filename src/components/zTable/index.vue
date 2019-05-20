@@ -15,6 +15,7 @@
                 <el-table-column align="center" label="操作" :width="opertionColumnWidth" v-if="tableBaseConfig.showOperation == undefined?true:tableBaseConfig.showOperation">
                     <template slot-scope="scope">
                         <el-button v-for="item in toolBarConfig.eachRow.default" :key="item.id" :id="item.id" type="primary" :style="item.style" size="small" :icon="item.icon" @click="item.click(scope.row)" :title="item.text"></el-button>
+                        <!-- <i v-for="item in toolBarConfig.eachRow.default" :key="item.id" :id="item.id" type="primary" :style="item.style" size="small" :icon="item.icon" @click="item.click(scope.row)" :title="item.text"></i> -->
                         <el-dropdown trigger="click" v-show="toolBarConfig.eachRow.dropdown.length > 0">
                             <el-button type="primary" size="small">
                                 ...<i class="el-icon-arrow-down el-icon--right"></i>

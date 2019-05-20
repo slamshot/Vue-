@@ -14,17 +14,17 @@
                         <el-input v-model="searchData.evaluateTname" placeholder="请输入评测表名称" size="small" style="width:260px;" clearable></el-input>
                     </el-form-item>
                 </el-col>
-                <el-col :span="6" style="width:300px;">
+                <el-col :span="5" style="width:290px;">
                     <el-form-item>
                         <el-select v-model="searchData.evaluKind" placeholder="请选择评价方式" size="small" style="width:250px;" clearable>
                             <el-option v-for="item in evaluKindOptions" :key="item.value" :label="item.label" :value="item.value"></el-option>
                         </el-select>
                     </el-form-item>
                 </el-col>
-                <el-col :span="8">
+                <el-col :span="3">
                     <!-- <el-button type="primary" @click="clear" size="small" icon="el-icon-refresh">清空</el-button> -->
-                    <el-button style="margin-top: 4px;" type="primary" @click="searching" size="small" icon="el-icon-search">查询</el-button>
-                    <el-button style="margin-top: 4px;" type="primary" @click="clearFrom" size="small" icon="el-icon-circle-close">清空</el-button>
+                    <el-button style="margin-top: 4px;" type="primary" @click="searching" size="small" icon="el-icon-search">筛选</el-button>
+                    <!-- <el-button style="margin-top: 4px;" type="primary" @click="clearFrom" size="small" icon="el-icon-circle-close">清空</el-button> -->
                 </el-col>
             </el-row>
         </el-form>
@@ -56,9 +56,9 @@ export default {
         //     };
         // }
         // 清空
-        clearFrom(){
-            this.searchData={};
-        },
+        // clearFrom(){
+        //     this.searchData={};
+        // },
     },
     /**
      * 计算属性（自定义方法）
@@ -97,5 +97,6 @@ export default {
 #searchFrom{
     display: flex;
     justify-content: flex-end;
+    padding-right: 10%;
 }
 </style>

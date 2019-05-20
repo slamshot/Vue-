@@ -1,22 +1,22 @@
 <template>
     <div id="search">
         <el-form :inline="true" :model="searchData" class="demo-form-inline">
-            <el-row>
-                <el-col :span="6" style="width:200px;">
+            <el-row class="searchRow">
+                <el-col :span="6" style="width:12%;">
                     <el-form-item>
-                        <el-select v-model="searchData.evaluKind" placeholder="评价类别" size="small" style="width:150px;" clearable>
+                        <el-select v-model="searchData.evaluKind" placeholder="评价类别" size="small" clearable>
                             <el-option v-for="item in evaluKindOptions" :key="item.value" :label="item.label" :value="item.value"></el-option>
                         </el-select>
                     </el-form-item>
                 </el-col>
-                <el-col :span="6" style="width:250px;">
+                <el-col :span="6" style="width:15%;">
                     <el-form-item>
-                        <el-input v-model="searchData.evaluateTname" placeholder="测评表名称" size="small" style="width:200px;" clearable></el-input>
+                        <el-input v-model="searchData.evaluateTname" placeholder="测评表名称" size="small" clearable></el-input>
                     </el-form-item>
                 </el-col>
-                <el-col :span="6" style="width:200px;">
+                <el-col :span="6" style="width:13%;">
                     <el-form-item>
-                        <el-input v-model="searchData.levelType" placeholder="评价方式" size="small" style="width:150px;" clearable></el-input>
+                        <el-input v-model="searchData.levelType" placeholder="评价方式" size="small" clearable></el-input>
                     </el-form-item>
                 </el-col>
                 <!-- <el-col :span="4">
@@ -24,20 +24,20 @@
                 </el-col> -->
             <!-- </el-row>
             <el-row> -->
-                <el-col :span="6" style="width:250px;">
+                <el-col :span="6" style="width:15%;">
                     <el-form-item>
-                        <el-input v-model="searchData.planName" placeholder="评价计划" size="small" style="width:200px;" clearable></el-input>
+                        <el-input v-model="searchData.planName" placeholder="评价计划" size="small"  clearable></el-input>
                     </el-form-item>
                 </el-col>
-                <el-col :span="6" style="width:250px;">
+                <el-col :span="6" style="width:20%;">
                     <el-form-item label-width="100px">
                         <el-date-picker size="small" v-model="searchData.dateFrame" type="daterange" range-separator="至" 
                         start-placeholder="开始时间" end-placeholder="结束时间" style="width:230px;"></el-date-picker>
                     </el-form-item>
                 </el-col>
-                <el-col :span="4">
+                <el-col :span="1">
                     <!-- <el-button type="primary" @click="clear" size="small" icon="el-icon-refresh">清空</el-button> -->
-                    <el-button style="margin-top: 4px;" type="primary" @click="searching" size="small" icon="el-icon-search">查询</el-button>
+                    <el-button style="margin-top: 4px;" type="primary" @click="searching" size="small" icon="el-icon-search">筛选</el-button>
                 </el-col>
             </el-row>
         </el-form>
@@ -102,5 +102,10 @@ export default {
 <style scoped>
 .el-form-item {
     margin-bottom: 10px;
+}
+.searchRow{
+    display: flex;
+    justify-content: space-between;
+    padding-right: 5%;
 }
 </style>

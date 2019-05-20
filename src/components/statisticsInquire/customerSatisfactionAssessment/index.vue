@@ -10,12 +10,12 @@
             </el-radio-group>
         </div>
         <div class="year">
-            <el-radio-group @change="yearChange" v-model="year" style="margin-right:30px;">
+            <span>年度</span>
+            <el-radio-group class="yearRadioGroup" @change="yearChange" v-model="year">
                 <el-radio label="1">单选年度</el-radio>
                 <el-radio label="2">连续年度</el-radio>
             </el-radio-group>
-            <span style="margin-right:20px;">年度</span>
-            <el-select @change="startYearChange" v-model="startYear" placeholder="请选择">
+            <el-select @change="startYearChange" v-model="startYear" placeholder="请选择初始年度">
                 <el-option
                 v-for="item in yearShowData"
                 :key="item.pkid"
@@ -23,8 +23,8 @@
                 :value="item.pkid">
                 </el-option>
             </el-select>
-            <span style="margin-right:10px;margin-left:10px;">至</span>
-            <el-select @change="endYearChange" v-model="endYear" :disabled="year==1" placeholder="请选择">
+            <span style="margin-right:10px;margin-left:10px;width:10px;">至</span>
+            <el-select @change="endYearChange" v-model="endYear" :disabled="year==1" placeholder="请选择结束年度">
                 <el-option
                 v-for="item in yearShowData"
                 :key="item.pkid"
@@ -35,8 +35,7 @@
         </div>
         <div class="lastDiv">
             <div>
-                <span>评价表：</span>
-                <el-select v-model="evaluationForm" placeholder="请选择">
+                <el-select v-model="evaluationForm" placeholder="评价表">
                     <el-option
                     v-for="item in evaluationFormSel"
                     :key="item.evaluateId"
@@ -46,8 +45,7 @@
                 </el-select>
             </div>
             <div>
-                <span>指标类型：</span>
-                <el-select :disabled="exportedDataFormat!=3" @change="getTarget" v-model="evaluKind" placeholder="请选择">
+                <el-select :disabled="exportedDataFormat!=3" @change="getTarget" v-model="evaluKind" placeholder="指标类型">
                     <el-option
                     v-for="item in indicatorTypeSel"
                     :key="item.value"
@@ -57,8 +55,7 @@
                 </el-select>
             </div>
             <div>
-                <span>具体指标：</span>
-                <el-select :disabled="exportedDataFormat!=3" v-model="specificTarget" placeholder="请选择">
+                <el-select :disabled="exportedDataFormat!=3" v-model="specificTarget" placeholder="具体指标">
                     <el-option
                     v-for="(item,index) in specificIndicatorsSel"
                     :key="index"
@@ -359,7 +356,13 @@ export default {
         display: flex;
         align-items: center;
         height: 50px;
-        width: 950px;
+        width: 690px;
+        justify-content: space-between;
+    }
+    .exportedDataFormat>div{
+        width: 552px;
+        display: flex;
+        justify-content: space-between;
     }
     .exportedDataFormat>span{
         font-size: 14px;
@@ -368,36 +371,46 @@ export default {
     .year{
         display: flex;
         height: 50px;
-        width: 950px;
         align-items: center;
+    }
+    .yearRadioGroup{
+        display: flex;
+        justify-content: space-between;
+        width: 229px;
+        margin-right: 68px;
     }
     .year>span{
         font-size: 14px;
         display: block;
-        /* line-height: 13px; */
+        display: inline-block;
+        width: 102px;
+        text-align: right;
+        margin-right: 36px;
     }
-    .lastDiv>div{
-        margin-right: 20px;
+    .lastDiv>div:first-child{
+        margin-right: 78px;
+    }
+    .lastDiv>div:nth-child(2){
+        margin-right: 30px;
     }
     .lastDiv{
         display: flex;
         align-items: center;
         height: 50px;
-        width: 950px;
         margin-top: 10px;
+        padding-left: 140px;
     }
     .lastDiv>div>span{
         font-size: 14px;
     }
     footer{
         display: flex;
-        justify-content: center;
+        padding-left: 140px;
         height: 50px;
-        width: 900px;
         align-items: center;
-        margin-top: 10px;
+        margin-top: 20px;
     }
     footer button{
-        margin-right: 20px;
+        margin-right: 40px !important;
     }
 </style>
