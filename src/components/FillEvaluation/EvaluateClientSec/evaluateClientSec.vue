@@ -130,26 +130,30 @@ export default {
             
             if(this.$route.type==0){
                 saveFillContent(data).then((result) => {
-                    this.$router.back();
-                    this.$message({
-                        message: '暂存成功',
-                        type: 'success'
-                    });
-                    this.$store.state.data.callback();
-                }).catch((err) => {
-                    
-                });
+                    if(result.status==200){
+                        this.$router.back();
+                        this.$message({
+                            message: '暂存成功!',
+                            type: 'success'
+                        });
+                        this.$store.state.data.callback();
+                    }else{
+                        this.$message.error('暂存失败!');
+                    }
+                })
             }else{
                 saveConsignFillContent(data).then((result) => {
-                    this.$router.back();
-                    this.$message({
-                        message: '暂存成功',
-                        type: 'success'
-                    });
-                    this.$store.state.data.callback();
-                }).catch((err) => {
-                    
-                });
+                    if(result.status==200){
+                        this.$router.back();
+                        this.$message({
+                            message: '暂存成功!',
+                            type: 'success'
+                        });
+                        this.$store.state.data.callback();
+                    }else{
+                        this.$message.error('暂存失败!');
+                    }
+                })
             }
         },
         // 提交
@@ -172,26 +176,30 @@ export default {
             
             if(this.$route.query.type==0){
                 saveFillContent(data).then((result) => {
-                    this.$router.back();
-                    this.$message({
-                        message: '保存成功',
-                        type: 'success'
-                    });
-                    this.$store.state.data.callback();
-                }).catch((err) => {
-                    
-                });
+                    if(result.status==200){
+                        this.$router.back();
+                        this.$message({
+                            message: '保存成功',
+                            type: 'success'
+                        });
+                        this.$store.state.data.callback();
+                    }else{
+                        this.$message.error('保存失败!');
+                    }
+                })
             }else{
                 saveConsignFillContent(data).then((result) => {
-                    this.$router.back();
-                    this.$message({
-                        message: '保存成功',
-                        type: 'success'
-                    });
-                    this.$store.state.data.callback();
-                }).catch((err) => {
-                    
-                });
+                    if(result.status==200){
+                        this.$router.back();
+                        this.$message({
+                            message: '保存成功',
+                            type: 'success'
+                        });
+                        this.$store.state.data.callback();
+                    }else{
+                        this.$message.error('保存失败!');
+                    }
+                })
             }
         },
     },
@@ -233,7 +241,6 @@ export default {
         }else{
             this.title='查看';
             this.isDisabled=true;
-            console.log(this.$route.query.type);
             
             evaluateContent(this.$route.query.id).then((result) => {
                 this.tableTarget=result.data.evaluateTargets;

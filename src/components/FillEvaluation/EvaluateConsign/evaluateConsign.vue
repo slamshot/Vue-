@@ -78,16 +78,17 @@ export default {
             apiData.evaluateListPKID=this.$route.query.EvaluateListPKID;
             
             saveConsignInfo(apiData).then((result) => {
-                this.$router.back();
-                this.$message({
-                    message: '委托成功',
-                    type: 'success'
-                });
-                this.$store.state.data.callback();
-                
-            }).catch((err) => {
-                // this.$message.error('委托失败');
-            });
+                if(result.status==200){
+                    this.$router.back();
+                    this.$message({
+                        message: '委托成功!',
+                        type: 'success'
+                    });
+                    this.$store.state.data.callback();
+                }else{
+                    this.$message.error('委托失败!');
+                }
+            })
             
         }
     },
