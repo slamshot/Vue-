@@ -181,7 +181,7 @@ export default {
         },
         // 请求列表数据之前
         beforeGetListData(currentPage,pageSize,order,filters){
-            filters.state='完成，统计中,已统计'
+            
         }
     },
     /**
