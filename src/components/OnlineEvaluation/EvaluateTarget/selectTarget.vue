@@ -76,7 +76,7 @@ export default {
         // 获取数据
         getData(){
             
-            getEvaluateTargetByEvaluKind('内部客户满意度评测').then((res) => {
+            getEvaluateTargetByEvaluKind('内部顾客满意度测评').then((res) => {
                 if(res.status == 200){
                     this.tableData = res.data;
                 }

@@ -49,7 +49,7 @@ export function getCurrentEvaluate(evaluKind){
     return request({
         url: '/evaluatePlan/current',
         params:{
-            evaluKind:'内部客户满意度评测'
+            evaluKind:'内部顾客满意度测评'
         },
         method: 'GET'
     })

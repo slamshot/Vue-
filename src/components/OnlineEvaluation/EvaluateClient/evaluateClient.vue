@@ -333,7 +333,7 @@ export default {
             // 获取模板数据
             let data = this.$store.state.data.data;
             // 获取计划信息
-            getCurrentEvaluate('内部客户满意度评测').then((res) => {
+            getCurrentEvaluate('内部顾客满意度测评').then((res) => {
                 if(res.status == 200){
                     let {pkid:planPKID,evaluPlan:planName,evaluKind,emailDay} = res.data;
                     // let {targetPKID,targetName,TargetWeight} = data.detail;

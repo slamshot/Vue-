@@ -95,8 +95,8 @@ export default {
                     value:'员工达优测评'
                 },
                 {
-                    label:'内部客户满意度评测',
-                    value:'内部客户满意度评测'
+                    label:'内部顾客满意度测评',
+                    value:'内部顾客满意度测评'
                 },
             ],
             specificIndicatorsSel:[],
