@@ -195,6 +195,7 @@ export default {
                     ]
                 }
             },
+            doUserNo:'',
         }
     },
     methods:{// 自定义方法
@@ -230,9 +231,9 @@ export default {
         // 请求列表数据之前
         beforeGetListData(currentPage,pageSize,order,filters){
             if(filters){
-                filters = Object.assign(filters,{doUserNo:'10002'});
+                filters = Object.assign(filters,{doUserNo:this.doUserNo});
             }else{
-                filters = {doUserNo:'10002'};
+                filters = {doUserNo:this.doUserNo};
             }
         }
     },
@@ -253,7 +254,7 @@ export default {
         }
     },
     created:function(){// 组件创建后
-       
+        this.doUserNo = this.$route.query.doUserNo;
     },
     mounted:function(){// 组件加载完成
         // DOTO

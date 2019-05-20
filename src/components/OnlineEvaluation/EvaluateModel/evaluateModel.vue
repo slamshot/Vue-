@@ -68,7 +68,7 @@ export default {
             type:'',
             // 表单数据
             formData:{
-                evaluKind:'内部客户满意度评测'
+                evaluKind:'内部顾客满意度测评'
             },
             // 明细数据
             formDataDetail:[],

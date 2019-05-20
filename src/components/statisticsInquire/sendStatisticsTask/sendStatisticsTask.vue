@@ -89,14 +89,17 @@ export default {
             for(let i=0;i<result.data.length;i++){
                 this.data.push(result.data[i]);
                 this.data[i].key=result.data[i].EvaluateId;
-                let state='';
-                if(result.data[i].state=='finish'){
+                let stateName='';
+                let state = result.data[i].state;
+                if(state =='finish'){
                     this.data[i].disabled=true;
-                    state='已统计';
+                    stateName='已统计';
+                }else if(state == 'start'){
+                    stateName='统计中';
                 }else{
-                    state='统计中';
+                    stateName='未统计';
                 }
-                this.data[i].label=result.data[i].EvaluateTname+'——'+state;
+                this.data[i].label=result.data[i].EvaluateTname+'——'+stateName;
             }
         }).catch((err) => {
             
