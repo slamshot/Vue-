@@ -46,21 +46,21 @@ export default {
             // 列表配置
             tableColumnConfig:[
                 {
-                    id:"evaluateTname",
+                    id:"EvaluateTname",
                     text:"评价表名称",
                     align:"center",
                     width:150,
                     sortable:true
                 },
                 {
-                    id:"evaluKind",
+                    id:"EvaluKind",
                     text:"评价类别",
                     align:"center",
                     width:150,
                     sortable:true
                 },
                 {
-                    id:"pjfs",
+                    id:"LevelType",
                     text:"评价方式",
                     align:"center",
                     width:150,
@@ -74,13 +74,13 @@ export default {
                     sortable:true
                 },
                 {
-                    id:"inputDate",
+                    id:"InputDate",
                     text:"制表时间",
                     align:"center",
                     width:80,
                     sortable:true,
                     formatter:function(row,column){
-                        return formatDate(row.inputDate);
+                        return formatDate(row.InputDate);
                     }
                 },
                 {
@@ -91,7 +91,7 @@ export default {
                     sortable:true,
                 },
                 {
-                    id:"doneUserCount",
+                    id:"DoneUserCount",
                     text:"被评价人数",
                     align:"center",
                     width:60,
@@ -103,6 +103,13 @@ export default {
                     align:"center",
                     width:60,
                     sortable:true,
+                    formatter:function(row,column){
+                        if(row.state=='finish'){
+                            return '已统计';
+                        }else{
+                            return '统计中'
+                        }
+                    }
                 },
             ],
             // 工具栏配置
@@ -159,7 +166,7 @@ export default {
          * rows：选中的所有行
          */
         rowsSelected(rows){
-             
+            
         },
         // 弹出框回调函数
         dialogCallback(data){

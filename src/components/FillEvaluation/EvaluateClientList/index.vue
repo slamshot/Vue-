@@ -170,6 +170,8 @@ export default {
                             text:"查看",
                             icon:"el-icon-view",
                             click:(row) => {
+                                console.log(row);
+                                
                                 this.$router.push(
                                     {
                                         name:'evaluateClientSec',
@@ -180,6 +182,7 @@ export default {
                                             state:'look',
                                             id:row.EvaluateId,
                                             EvaluateListPKID:row.EvaluateListPKID,
+                                            type:row.type,
                                         }
                                     }
                                 ); 

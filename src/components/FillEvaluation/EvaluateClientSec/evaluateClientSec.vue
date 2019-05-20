@@ -67,7 +67,7 @@
 </template>
 
 <script>
-import {evaluateContent,saveFillContent,getFillContent,getTargetItem,saveConsignFillContent} from './evaluateClientSecApi.js'
+import {evaluateContent,saveFillContent,getFillContent,getConsignFillContent,getTargetItem,saveConsignFillContent} from './evaluateClientSecApi.js'
 import {getLoginInfo} from '../../OnlineEvaluation/onlineEvaluation.js'
 export default {
     name:'evaluateClientSec',
@@ -233,28 +233,42 @@ export default {
         }else{
             this.title='查看';
             this.isDisabled=true;
+            console.log(this.$route.query.type);
+            
             evaluateContent(this.$route.query.id).then((result) => {
                 this.tableTarget=result.data.evaluateTargets;
                 this.tableHead=result.data.doneFullNames.split(',');
-                getFillContent(this.$route.query.EvaluateListPKID).then((result) => {
-                    
-                this.tableArr.push({'depart':''})
-                for(let i=0;i<this.tableHead.length;i++){
-                    let json={};
-                    json["depart"] = this.tableHead[i];
-                    for(let j=0;j<this.tableTarget.length;j++){
-                        if(result.data[i]['target'+(j+1)]){
-                            json['target'+(j+1)]=result.data[i]['target'+(j+1)];
+                if(this.$route.query.type==1){                    
+                    getConsignFillContent(this.$route.query.EvaluateListPKID).then((result) => {
+                        this.tableArr.push({'depart':''})
+                        for(let i=0;i<this.tableHead.length;i++){
+                            let json={};
+                            json["depart"] = this.tableHead[i];
+                            for(let j=0;j<this.tableTarget.length;j++){
+                                if(result.data[i]['target'+(j+1)]){
+                                    json['target'+(j+1)]=result.data[i]['target'+(j+1)];
+                                }
+                            }
+                            this.tableArr.push(json)
                         }
-                    }
-                    this.tableArr.push(json)
+                        
+                    })
+                }else{
+                    getFillContent(this.$route.query.EvaluateListPKID).then((result) => {
+                        this.tableArr.push({'depart':''})
+                        for(let i=0;i<this.tableHead.length;i++){
+                            let json={};
+                            json["depart"] = this.tableHead[i];
+                            for(let j=0;j<this.tableTarget.length;j++){
+                                if(result.data[i]['target'+(j+1)]){
+                                    json['target'+(j+1)]=result.data[i]['target'+(j+1)];
+                                }
+                            }
+                            this.tableArr.push(json)
+                        }
+                    })
                 }
-                }).catch((err) => {
-                    
-                });
-            }).catch((err) => {
-                 
-            });
+            })
              
         }
         

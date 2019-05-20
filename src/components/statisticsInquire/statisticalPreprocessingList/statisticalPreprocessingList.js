@@ -2,7 +2,7 @@ import request from '@/utils/request'
 /* 主表接口 */
 export function getList(currentPage,pageSize,orders,filters){
     return request({
-        url: '/evaluateClient/gets',
+        url: '/evaluateClientStatis/gets',
         data:{
             currentPage,
             pageSize,

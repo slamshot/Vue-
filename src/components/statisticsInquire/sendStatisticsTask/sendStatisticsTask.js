@@ -1,19 +1,9 @@
 import request from '@/utils/request'
 /* 获取在线评价列表 */
-export function gets(data){
+export function gets(){
     return request({
-        url: '/evaluateClient/gets',
-        data:JSON.stringify({
-            // 条件信息
-            filters:data
-        }),
-        transformRequest: [(data) => {
-            return data
-        }],
-        headers: {
-            'Content-Type': 'application/json;charset=UTF-8'
-        },
-        method: 'POST'
+        url: '/evaluateClientStatis/getToBeSelected',
+        method: 'GET'
     })
 }
 

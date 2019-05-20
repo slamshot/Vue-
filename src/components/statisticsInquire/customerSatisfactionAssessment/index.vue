@@ -37,34 +37,34 @@
             <div>
                 <span>评价表：</span>
                 <el-select v-model="evaluationForm" placeholder="请选择">
-                    <!-- <el-option
-                    v-for="item in options"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
-                    </el-option> -->
+                    <el-option
+                    v-for="item in evaluationFormSel"
+                    :key="item.evaluateId"
+                    :label="item.evaluateTname"
+                    :value="item.evaluateId">
+                    </el-option>
                 </el-select>
             </div>
             <div>
                 <span>指标类型：</span>
-                <el-select v-model="evaluKind" placeholder="请选择">
-                    <!-- <el-option
-                    v-for="item in options"
+                <el-select :disabled="exportedDataFormat!=3" @change="getTarget" v-model="evaluKind" placeholder="请选择">
+                    <el-option
+                    v-for="item in indicatorTypeSel"
                     :key="item.value"
                     :label="item.label"
                     :value="item.value">
-                    </el-option> -->
+                    </el-option>
                 </el-select>
             </div>
             <div>
                 <span>具体指标：</span>
-                <el-select v-model="specificTarget" placeholder="请选择">
-                    <!-- <el-option
-                    v-for="item in options"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
-                    </el-option> -->
+                <el-select :disabled="exportedDataFormat!=3" v-model="specificTarget" placeholder="请选择">
+                    <el-option
+                    v-for="(item,index) in specificIndicatorsSel"
+                    :key="index"
+                    :label="item.targetName"
+                    :value="index+1">
+                    </el-option>
                 </el-select>
             </div>
         </div>
@@ -72,11 +72,12 @@
             <el-button @click="confirm" type="primary">确定</el-button>
             <el-button @click="clear">清空</el-button>
         </footer>
+        <iframe :src="srcUrl" frameborder="0" style="width:100%;height:500px;"></iframe>
     </div>
 </template>
 
 <script>
-import {gets,getByYear,exportExcel} from './customerSatisfactionAssessment.js'
+import {gets,getByYear,getByEvaluKind,exportExcel} from './customerSatisfactionAssessment.js'
 import {getLoginInfo} from '../../OnlineEvaluation/onlineEvaluation.js'
 export default {
     name:'customerSatisfactionAssessment',
@@ -87,6 +88,18 @@ export default {
         return {
             // 显示数据
             yearShowData:[],
+            evaluationFormSel:[],
+            indicatorTypeSel:[
+                {
+                    label:'员工达优测评',
+                    value:'员工达优测评'
+                },
+                {
+                    label:'内部客户满意度评测',
+                    value:'内部客户满意度评测'
+                },
+            ],
+            specificIndicatorsSel:[],
             // 导出的数据格式
             exportedDataFormat:'1',
             year:'1',
@@ -97,7 +110,11 @@ export default {
             // 指标类型
             evaluKind:'',
             // 具体指标
-            specificTarget:''
+            specificTarget:'',
+            // 链接
+            evaluateIds:'1',
+            srcUrl:'',
+            // srcUrl:`http://10.214.93.90:8075/WebReport/ReportServer?reportlet=vue%2FBasicData.cpt&__bypagesize__=false&evaluateIds=${evaluateIds}`,
         }
     },
     methods:{// 自定义方法
@@ -110,17 +127,27 @@ export default {
                     data.planPKID=this.startYear;
                     getByYear(data).then((result) => {
                         console.log(result.data)
-                    }).catch((err) => {
-                        
-                    });
+                        this.evaluationFormSel=result.data;
+                    })
                 }else{
                     this.$message({
                         message: '请选择初始年度选项!',
                         type: 'warning'
                     });
                 }
+            }else{
+                if(this.startYear==""){
+                    this.$message({
+                        message: '请选择初始年度选项!',
+                        type: 'warning'
+                    });
+                }else{
+                    this.$message({
+                        message: '请选择结束年度选项!',
+                        type: 'warning'
+                    });
+                }
             }
-            console.log(111);
             
         },
         // 初始年度变化
@@ -132,9 +159,8 @@ export default {
                 
                 getByYear(data).then((result) => {
                     console.log(result.data)
-                }).catch((err) => {
-                    
-                });
+                    this.evaluationFormSel=result.data;
+                })
             }else{
                 if(this.endYear==''){
                     this.$message({
@@ -155,10 +181,11 @@ export default {
                             yearArr.push(this.yearShowData[i].inputDate);
                         }
                     }
-                    data.yearRange=yearArr.join('-');
+                    data.yearRange=yearArr.join(',');
                     console.log(data);
                     getByYear(data).then((result) => {
                         console.log(result.data)
+                        this.evaluationFormSel=result.data;
                     })
                 }
             }
@@ -184,15 +211,24 @@ export default {
                         yearArr.push(this.yearShowData[i].inputDate);
                     }
                 }
-                data.yearRange=yearArr.join('-');
+                data.yearRange=yearArr.join(',');
                 console.log(data);
                 getByYear(data).then((result) => {
                     console.log(result.data)
+                    this.evaluationFormSel=result.data;
                 })
             }
         },
+        // 指标类型变化
+        getTarget(){
+            getByEvaluKind(this.evaluKind).then((result) => {
+                console.log(result);
+                this.specificIndicatorsSel=result.data;
+            })
+        },
         // 确定
         confirm(){
+            
             if(this.startYear==''){
                 this.$message({
                     message: '请选择初始年度选项!',
@@ -214,20 +250,63 @@ export default {
                 });
                 return false;
             }
-            if(this.evaluKind==''){
+            
+            if(this.evaluKind=='' && this.exportedDataFormat==3){
                 this.$message({
                     message: '请选择指标类型!',
                     type: 'warning'
                 });
                 return false;
             }
-            if(this.specificTarget==''){
+            if(this.specificTarget=='' && this.exportedDataFormat==3){
                 this.$message({
                     message: '请选择具体指标!',
                     type: 'warning'
                 });
                 return false;
             }
+        
+            let evaluateIdsArr=[];
+            let evaluateIdsStr='';
+            let taskId='';
+
+            evaluateIdsArr=this.evaluationForm.split(',');
+            for(let i=0;i<evaluateIdsArr.length;i++){
+                evaluateIdsStr+="'"+evaluateIdsArr[i]+"',"
+            }
+            evaluateIdsStr=evaluateIdsStr.substring(0,evaluateIdsStr.length-1);
+
+            console.log(this.evaluationForm);
+            
+            for(let i=0;i<this.evaluationFormSel.length;i++){
+                if(this.evaluationForm==this.evaluationFormSel[i].evaluateId){
+                    console.log('=====');
+                    
+                    taskId=this.evaluationFormSel[i].taskId;
+                    break;
+                }
+            }
+            
+            console.log(evaluateIdsStr);
+            console.log(taskId);
+            
+
+            switch (this.exportedDataFormat){
+                case '1':
+                    this.srcUrl='http://10.214.93.90:8075/WebReport/ReportServer?reportlet=vue%2FBasicData.cpt&__bypagesize__=false&evaluateIds='+evaluateIdsStr
+                    break;
+                case '2':
+                    this.srcUrl='http://10.214.93.90:8075/WebReport/ReportServer?reportlet=vue%2FTotalScoreTable.cpt&evaluateIds='+evaluateIdsStr
+                    break;
+                case '3':
+                    this.srcUrl='http://10.214.93.90:8075/WebReport/ReportServer?reportlet=vue%2FSingleTargetTable.cpt&evaluateIds='+evaluateIdsStr+'&targetIndex='+this.specificTarget
+                    break;
+                case '4':
+                    this.srcUrl='http://10.214.93.90:8075/WebReport/ReportServer?reportlet=vue%2FChart.cpt&taskIds='+taskId
+                    break;
+            }
+            console.log(this.srcUrl);
+            
         },
         // 清空
         clear(){

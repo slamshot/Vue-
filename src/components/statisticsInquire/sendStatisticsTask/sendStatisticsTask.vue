@@ -84,13 +84,19 @@ export default {
         
     },
     created:function(){// 组件创建后
-        let data='完成，统计中,已统计'
-        gets(data).then((result) => {
-            console.log(result.data.content)
-            for(let i=0;i<result.data.content.length;i++){
-                this.data.push(result.data.content[i]);
-                this.data[i].key=result.data.content[i].id;
-                this.data[i].label=result.data.content[i].evaluateTname+'——'+result.data.content[i].state;
+        gets().then((result) => {
+            console.log(result.data)
+            for(let i=0;i<result.data.length;i++){
+                this.data.push(result.data[i]);
+                this.data[i].key=result.data[i].EvaluateId;
+                let state='';
+                if(result.data[i].state=='finish'){
+                    this.data[i].disabled=true;
+                    state='已统计';
+                }else{
+                    state='统计中';
+                }
+                this.data[i].label=result.data[i].EvaluateTname+'——'+state;
             }
         }).catch((err) => {
             

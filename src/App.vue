@@ -36,6 +36,11 @@ export default {
       window.onresize = function() {
           self.appHeight = window.innerHeight-67
       }
+  },
+  watch:{
+    $route(to,from){
+      console.log(to.name);
+    }
   }
 }
 </script>

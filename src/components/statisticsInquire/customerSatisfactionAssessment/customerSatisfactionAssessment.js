@@ -33,14 +33,23 @@ export function gets(){
 export function getByYear(data){
     return request({
         url: '/evaluateClientStatis/task/getByYear',
-        data:JSON.stringify(data),
-        method: 'POST',
-        transformRequest: [(data) => {
-            return data
-        }],
-        headers: {
-            'Content-Type': 'application/json;charset=UTF-8'
-        }
+        params:data,
+        method: 'GET',
+        // transformRequest: [(data) => {
+        //     return data
+        // }],
+        // headers: {
+        //     'Content-Type': 'application/json;charset=UTF-8'
+        // }
+    })
+}
+
+// 获取具体指标下拉框数据
+export function getByEvaluKind(data){
+    return request({
+        url: '/evaluateTarget/getByEvaluKind',
+        params:{evaluKind:data},
+        method: 'GET',
     })
 }
 

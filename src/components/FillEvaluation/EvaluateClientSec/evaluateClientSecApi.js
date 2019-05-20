@@ -39,10 +39,21 @@ export function saveConsignFillContent(data){
     })
 }
 
-// 查看，获取填写内容
+// 查看，获取填写内容（不是委托的）
 export function getFillContent(id){
     return request({
         url: '/evaluateClientList/getFillContent',
+        method: 'GET',
+        params:{
+            evaluateListPKID:id
+        }
+    })
+}
+
+// 查看，获取填写内容（委托的）
+export function getConsignFillContent(id){
+    return request({
+        url: '/evaluateClientList/getConsignFillContent',
         method: 'GET',
         params:{
             evaluateListPKID:id
