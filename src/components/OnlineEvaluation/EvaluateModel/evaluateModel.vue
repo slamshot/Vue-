@@ -33,12 +33,12 @@
                     </el-table-column>
                     <el-table-column align="center" label="操作" min-width="80">
                         <template slot-scope="scope">
-                            <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)" icon="el-icon-delete" title="删除"></el-button>
+                            <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)" icon="el-icon-delete" title="删除" :disabled="Object.is(type,'view')"></el-button>
                         </template>
                     </el-table-column>
                 </el-table>
            </div>
-           <div id="toolbar" class="toolbar" slot="footer">
+           <div id="toolbar" class="toolbar" slot="footer" v-show="!Object.is(type,'view')">
                <el-button ref="saveButton" type="primary" @click="saveData('form',0)">保存</el-button>
                <el-button type="primary" @click="saveData('form',1)" icon="el-icon-success">保存并使用模板</el-button>
                <el-button @click="close" icon="el-icon-close">取消</el-button>

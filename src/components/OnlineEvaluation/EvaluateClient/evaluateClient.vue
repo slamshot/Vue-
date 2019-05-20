@@ -294,7 +294,7 @@ export default {
                         main:this.formData,
                         headDetail:this.formDataDetail_index,
                         listDetail:newFormDataDetail_evaluate
-                    }
+                    };
                     this.$store.commit("setData",{data});
                     this.$router.push(
                         {
@@ -304,6 +304,11 @@ export default {
                             }
                         }
                     );
+                }else{
+                    this.$message({
+                        message: `被评价部门和被评价人不能为空`,
+                        type: 'warning'
+                    });
                 }
             });
             

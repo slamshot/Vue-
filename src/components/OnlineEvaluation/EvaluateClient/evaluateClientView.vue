@@ -75,7 +75,7 @@ export default {
             "rowSelected":this.rowSelected,
             "rowsSelected":this.rowsSelected,
             "rowsSelectedAll":this.rowsSelectedAll,
-            "getList":this.getDataToview,
+            "getList":this.dataToview,
             "SearchPage":'',
             'beforeGetListData':this.beforeGetListData
        }
@@ -134,8 +134,6 @@ export default {
     methods:{// 自定义方法
         //关闭窗口返回的页面
         close(){
-            console.log(this.type);
-            
             if(Object.is(this.type,"add")){
                 this.$router.push({name:"evaluateModelList"});
             }else{
@@ -158,6 +156,10 @@ export default {
                     data["listChildrens"] = Array.from(this.formDataDetail_evaluate);
                     save(data).then((res)=>{
                         if(res.status == 200){
+                            let callback = this.$store.state.data.callback;
+                            if(callback){
+                                callback({type:this.type,data:res.data});
+                            }
                             this.$message({
                                 message: '保存成功',
                                 type: 'success'
@@ -167,18 +169,13 @@ export default {
                     });
                 }
             });
-            
-            
-        },
-        async getData(){
-            
         },
         // 分发
         handout(){
 
         },
-        async getDataToview(){
-            if(!Object.is(this.type,"add")){
+        async getData(){
+            if(!Object.is(this.type,"add") && !Object.is(this.type,'amodify')){
                 this.id = this.$route.query.id;
                 await get(this.id).then((res) => {
                     this.formData = res.data.main;
@@ -187,13 +184,15 @@ export default {
                 });
             }else{
                 let data = this.$store.state.data.data;
-                console.log(data);
                 
                 this.formData = data.main;
                 this.formDataDetail_target = data.headDetail;
                 this.formDataDetail_evaluate = data.listDetail;
                 this.formData.groupName = getLoginInfo('groupName');
             }
+        },
+        dataToview(){
+            console.log(this.formData);
             let tableData = [];
             this.formData.inputDate = formatDate(this.formData.inputDate);
             let doFullNames = this.formData.doFullName;
@@ -246,7 +245,10 @@ export default {
     created:function(){// 组件创建后
         // DOTO
         this.type = this.$route.query.useType;
-        
+        if(Object.is(this.type,'modify')){
+            this.type = 'amodify'
+        }
+        this.getData();
     },
     mounted:function(){// 组件加载完成
         // DOTO
