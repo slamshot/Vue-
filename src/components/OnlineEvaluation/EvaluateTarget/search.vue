@@ -1,6 +1,6 @@
 <template>
     <div id="search" class="search">
-        <el-form :inline="true" :model="searchData" class="demo-form-inline">
+        <el-form style="width:100%;display: flex;justify-content: space-between;" :inline="true" :model="searchData" class="demo-form-inline">
             <el-form-item>
                 <el-select v-model="searchData.evaluKind" placeholder="请选择评价类别" size="small" clearable>
                     <el-option v-for="item in evaluKindOptions" :key="item.value" :label="item.label" :value="item.value"></el-option>
@@ -73,7 +73,7 @@ export default {
 </script>
 <style>
 .search{
-    text-align: right;
+    /* text-align: right; */
     padding-right: 250px;
 }
 </style>

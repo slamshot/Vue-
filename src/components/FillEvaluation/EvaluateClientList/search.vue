@@ -1,7 +1,7 @@
 <template>
     <div id="search">
         <el-form :inline="true" :model="searchData" class="demo-form-inline">
-            <el-row class="searchRow">
+            <el-row type="flex" justify="space-between" class="searchRow">
                 <el-col :span="6" style="width:12%;">
                     <el-form-item>
                         <el-select v-model="searchData.evaluKind" placeholder="评价类别" size="small" clearable>
@@ -104,8 +104,6 @@ export default {
     margin-bottom: 10px;
 }
 .searchRow{
-    display: flex;
-    justify-content: space-between;
     padding-right: 5%;
 }
 </style>

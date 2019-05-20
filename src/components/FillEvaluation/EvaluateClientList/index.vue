@@ -173,21 +173,27 @@ export default {
                             icon:"el-icon-view",
                             click:(row) => {
                                 console.log(row);
-                                
-                                this.$router.push(
-                                    {
-                                        name:'evaluateClientSec',
-                                        query:{
-                                            EvaluKind:row.EvaluKind,
-                                            EvaluateTname:row.EvaluateTname,
-                                            StartDate:row.InputDate,
-                                            state:'look',
-                                            id:row.EvaluateId,
-                                            EvaluateListPKID:row.EvaluateListPKID,
-                                            type:row.type,
+                                if(row.State=='finish'){
+                                    this.$router.push(
+                                        {
+                                            name:'evaluateClientSec',
+                                            query:{
+                                                EvaluKind:row.EvaluKind,
+                                                EvaluateTname:row.EvaluateTname,
+                                                StartDate:row.InputDate,
+                                                state:'look',
+                                                id:row.EvaluateId,
+                                                EvaluateListPKID:row.EvaluateListPKID,
+                                                type:row.type,
+                                            }
                                         }
-                                    }
-                                ); 
+                                    ); 
+                                }else{
+                                    this.$message({
+                                        message: '根据该条目状态未完成，不能查看',
+                                        type: 'warning'
+                                    });
+                                }
                             }
                         }
                     ],

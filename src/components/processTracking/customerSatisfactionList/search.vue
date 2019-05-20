@@ -1,19 +1,19 @@
 <template>
     <div id="search">
         <el-form :inline="true" :model="searchData" class="demo-form-inline">
-            <el-row id="searchFrom">
-                <el-col :span="6" style="width:250px;">
+            <el-row type="flex" justify="space-between" id="searchFrom">
+                <el-col :span="4">
                     <el-form-item label-width="100px">
                         <el-date-picker size="small" v-model="searchData.dateFrame" type="daterange" range-separator="至" 
                         start-placeholder="制表时间" end-placeholder="制表时间" style="width:230px;"></el-date-picker>
                     </el-form-item>
                 </el-col>
-                <el-col :span="6" style="width:300px;">
+                <el-col :span="4">
                     <el-form-item>
                         <el-input v-model="searchData.evaluateTname" placeholder="请输入评测表名称" size="small" style="width:260px;" clearable></el-input>
                     </el-form-item>
                 </el-col>
-                <el-col :span="3">
+                <el-col :span="1">
                     <!-- <el-button type="primary" @click="clear" size="small" icon="el-icon-refresh">清空</el-button> -->
                     <el-button style="margin-top: 4px;" type="primary" @click="searching" size="small" icon="el-icon-search">查询</el-button>
                     <!-- <el-button style="margin-top: 4px;" type="primary" @click="clearFrom" size="small" icon="el-icon-circle-close">清空</el-button> -->
@@ -87,8 +87,6 @@ export default {
     margin-bottom: 10px;
 }
 #searchFrom{
-    display: flex;
-    justify-content: flex-end;
     padding-right: 10%;
 }
 </style>
