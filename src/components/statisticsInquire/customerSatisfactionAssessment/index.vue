@@ -10,7 +10,7 @@
             </el-radio-group>
         </div>
         <div class="year">
-            <span>年度</span>
+            <span>年度：</span>
             <el-radio-group class="yearRadioGroup" @change="yearChange" v-model="year">
                 <el-radio label="1">单选年度</el-radio>
                 <el-radio label="2">连续年度</el-radio>
@@ -383,9 +383,9 @@ export default {
         font-size: 14px;
         display: block;
         display: inline-block;
-        width: 102px;
+        width: 113px;
         text-align: right;
-        margin-right: 36px;
+        margin-right: 25px;
     }
     .lastDiv>div:first-child{
         margin-right: 78px;
