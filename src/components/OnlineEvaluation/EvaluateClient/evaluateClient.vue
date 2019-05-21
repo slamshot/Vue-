@@ -340,11 +340,19 @@ export default {
             // 获取计划信息
             getCurrentEvaluate('内部顾客满意度测评').then((res) => {
                 if(res.status == 200){
-                    let {pkid:planPKID,evaluPlan:planName,evaluKind,emailDay} = res.data;
-                    // let {targetPKID,targetName,TargetWeight} = data.detail;
-                    this.formDataDetail_index = data.detail;
-                    let {pkid:modelPKID,modelName} = data.main;
-                    this.formData = Object.assign({modelPKID,modelName},{planPKID,planName,evaluKind,emailDay});
+                    if(res.data != ""){
+                        let {pkid:planPKID,evaluPlan:planName,evaluKind,emailDay} = res.data;
+                        // let {targetPKID,targetName,TargetWeight} = data.detail;
+                        this.formDataDetail_index = data.detail;
+                        let {pkid:modelPKID,modelName} = data.main;
+                        this.formData = Object.assign({modelPKID,modelName},{planPKID,planName,evaluKind,emailDay});
+                    }else{
+                        this.$message({
+                            message: `没有开始的计划，请先添加计划`,
+                            type: 'warning'
+                        });
+                        this.close();
+                    }
                 }
             });
         }

@@ -67,6 +67,10 @@ export default {
                     save(data).then((res)=>{
                         if(res.status == 200){
                             this.$store.state.data.callback({type:this.type,data:res.data});
+                            this.$message({
+                                message: '保存成功',
+                                type: 'success'
+                            });
                             this.close();
                         }
                     });
