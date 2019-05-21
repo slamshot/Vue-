@@ -47,6 +47,7 @@
                             <el-option value="B">B</el-option>
                             <el-option value="C">C</el-option>
                             <el-option value="D">D</el-option>
+                            <el-option value="D">E</el-option>
                         </el-select>
                         <label class="labelBlue" @mouseover="hoverTitle(scope.$index)" v-else>{{ scope.row.targetName }}</label>
                     </template>
@@ -217,23 +218,60 @@ export default {
         this.EvaluateTname=this.$route.query.EvaluateTname;
         this.StartDate=this.$route.query.StartDate.substring(0,10);
         this.StartYear=this.$route.query.StartDate.substring(0,4);
+        console.log(this.$route.query.nowState);
+        
         if(this.$route.query.state == 'add'){
             this.title='填写';
-            evaluateContent(this.$route.query.id).then((result) => {
-                this.tableTarget=result.data.evaluateTargets;
-                this.tableHead=result.data.doneFullNames.split(',');
-                this.tableArr.push({"depart":''});
-                for(let j=0;j<this.tableHead.length;j++){
-                    let json = {};
-                    json["depart"] = this.tableHead[j];
-                    for(let i=0;i<this.tableTarget.length;i++){
-                        json["target"+(i+1)] = "A";
+            if(this.$route.query.nowState=='save'){
+                evaluateContent(this.$route.query.id).then((result) => {
+                    this.tableTarget=result.data.evaluateTargets;
+                    this.tableHead=result.data.doneFullNames.split(',');
+                    if(this.$route.query.type==1){                    
+                        getConsignFillContent(this.$route.query.EvaluateListPKID).then((result) => {
+                            this.tableArr.push({'depart':''})
+                            for(let i=0;i<this.tableHead.length;i++){
+                                let json={};
+                                json["depart"] = this.tableHead[i];
+                                for(let j=0;j<this.tableTarget.length;j++){
+                                    if(result.data[i]['target'+(j+1)]){
+                                        json['target'+(j+1)]=result.data[i]['target'+(j+1)];
+                                    }
+                                }
+                                this.tableArr.push(json)
+                            }
+                            
+                        })
+                    }else{
+                        getFillContent(this.$route.query.EvaluateListPKID).then((result) => {
+                            this.tableArr.push({'depart':''})
+                            for(let i=0;i<this.tableHead.length;i++){
+                                let json={};
+                                json["depart"] = this.tableHead[i];
+                                for(let j=0;j<this.tableTarget.length;j++){
+                                    if(result.data[i]['target'+(j+1)]){
+                                        json['target'+(j+1)]=result.data[i]['target'+(j+1)];
+                                    }
+                                }
+                                this.tableArr.push(json)
+                            }
+                        })
                     }
-                    this.tableArr.push(json)
-                }
-            }).catch((err) => {
-                
-            });;
+                })
+            }else{
+                evaluateContent(this.$route.query.id).then((result) => {
+                    this.tableTarget=result.data.evaluateTargets;
+                    this.tableHead=result.data.doneFullNames.split(',');
+                    this.tableArr.push({"depart":''});
+                    for(let j=0;j<this.tableHead.length;j++){
+                        let json = {};
+                        json["depart"] = this.tableHead[j];
+                        for(let i=0;i<this.tableTarget.length;i++){
+                            json["target"+(i+1)] = "A";
+                        }
+                        this.tableArr.push(json)
+                    }
+                })
+            }
         }else{
             this.title='查看';
             this.isDisabled=true;

@@ -126,9 +126,9 @@ export default {
                             // disabled:!row.state=='start',
                             click:(row) => {
                                 console.log(row);
-                                if(row.State=='finish'){
+                                if(row.State=='finish' || row.State=='consign'){
                                     this.$message({
-                                        message: '该条目已填写完成',
+                                        message: '根据该条目状态判定不可填写',
                                         type: 'warning'
                                     });
                                 }else{
@@ -141,6 +141,7 @@ export default {
                                                 EvaluateTname:row.EvaluateTname,
                                                 StartDate:row.InputDate,
                                                 state:'add',
+                                                nowState:row.State,
                                                 id:row.EvaluateId,
                                                 EvaluateListPKID:row.EvaluateListPKID,
                                                 type:row.type,
@@ -157,13 +158,15 @@ export default {
                             click:(row) => {
                                 this.$store.commit("setData",{callback:this.dialogCallback})
                                 // this.viewButtonClick(row[key],row.state);
-                                if(row.type==0 && row.State!='finish'){
-                                    this.$router.push({name:'evaluateConsign',query:{PlanName:row.PlanName,EvaluateId:row.EvaluateId,EvaluateListPKID:row.EvaluateListPKID}}); 
-                                }else{
+                                console.log(row);
+                                
+                                if(row.type==1 || row.State=='finish' || row.State=='consign'){
                                     this.$message({
                                         message: '根据该条目状态判定不可委托',
                                         type: 'warning'
                                     });
+                                }else{
+                                    this.$router.push({name:'evaluateConsign',query:{PlanName:row.PlanName,EvaluateId:row.EvaluateId,EvaluateListPKID:row.EvaluateListPKID}}); 
                                 }
                             }
                         },
@@ -173,7 +176,7 @@ export default {
                             icon:"el-icon-view",
                             click:(row) => {
                                 console.log(row);
-                                if(row.State=='finish'){
+                                if(row.State=='finish' || row.State=='save'){
                                     this.$router.push(
                                         {
                                             name:'evaluateClientSec',
