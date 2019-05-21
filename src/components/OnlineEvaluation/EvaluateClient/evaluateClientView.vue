@@ -134,8 +134,12 @@ export default {
     methods:{// 自定义方法
         //关闭窗口返回的页面
         close(){
-            if(Object.is(this.type,"add")){
+            console.log(this.$route.query.nowPage);
+            
+            if(Object.is(this.type,"add") && !this.$route.query.nowPage){
                 this.$router.push({name:"evaluateModelList"});
+            }else if(this.$route.query.nowPage=='statisticalPreprocessingList'){
+                this.$router.push({name:"statisticalPreprocessingList"});
             }else{
                 this.$router.push({name:"evaluateClientList"});
             }

@@ -137,9 +137,24 @@ export default {
                             text:"查看",
                             icon:"el-icon-view",
                             click:(row) => {
-                                this.$store.commit("setData",{callback:this.dialogCallback})
                                 console.log(row);
-                                // this.$router.push({name:'statisticalPreprocessingView',query:{id:row.id}})
+                                if(row.state=='finish'){
+                                    this.$router.push(
+                                        {
+                                            name:'evaluateClientView',
+                                            query:{
+                                                useType:'view',
+                                                id:row.EvaluateId,
+                                                nowPage:'statisticalPreprocessingList'
+                                            }
+                                        }
+                                    );
+                                }else{
+                                    this.$message({
+                                        message: '未统计状态下不可查看！',
+                                        type: 'warning'
+                                    });
+                                }
                             }
                         }
                     ],

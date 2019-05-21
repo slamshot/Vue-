@@ -145,6 +145,7 @@ export default {
                                                 id:row.EvaluateId,
                                                 EvaluateListPKID:row.EvaluateListPKID,
                                                 type:row.type,
+                                                inputerUserNo:this.$route.query.doUserNo
                                             }
                                         }
                                     ); 
@@ -226,7 +227,7 @@ export default {
          * rows：选中的所有行
          */
         rowsSelected(rows){
-             
+            
         },
         /**
          * 点击全选的checkbox触发

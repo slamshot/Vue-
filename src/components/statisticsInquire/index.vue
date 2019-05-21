@@ -48,6 +48,7 @@ export default {
             
             for(let i=0;i<domArr.length;i++){
                 domArr[i].style.borderBottom='';
+                domArr[i].style.color='#66b1ff';
             }
             console.log(domArr);
             console.log(to.name);
@@ -55,9 +56,11 @@ export default {
             switch(to.name){
                 case "statisticalPreprocessingList":
                     domArr[0].style.borderBottom='2px solid #66b1ff';
+                    domArr[0].style.color='#66b1ff';
                     break;
                 case "customerSatisfactionAssessment":
                     domArr[1].style.borderBottom='2px solid #66b1ff';
+                    domArr[1].style.color='#66b1ff';
                     break;
             }
         }
@@ -69,7 +72,7 @@ export default {
     mounted:function(){// 组件加载完成
         // TODO
         let domArr=document.querySelector('#tjcxDiv').querySelectorAll('.tjcxDivSon')
-        
+        domArr[0].style.color='#66b1ff';
         domArr[0].style.borderBottom='2px solid #66b1ff';
     },
     beforeUpdate:function(){// 组件数据更新之前

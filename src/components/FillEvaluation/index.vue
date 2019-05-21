@@ -48,11 +48,13 @@ export default {
             
             for(let i=0;i<domArr.length;i++){
                 domArr[i].style.borderBottom='';
+                domArr[i].style.color='';
             }
             
             switch(to.name){
                 case "fillEvaluationList":
                     domArr[0].style.borderBottom='2px solid #66b1ff';
+                    domArr[0].style.color='#66b1ff';
                     break;
             }
         }
@@ -64,7 +66,7 @@ export default {
     mounted:function(){// 组件加载完成
         // TODO
         let domArr=document.querySelector('#pjbDiv').querySelectorAll('.pjbDivSon')
-        
+        domArr[0].style.color='#66b1ff';
         domArr[0].style.borderBottom='2px solid #66b1ff';
     },
     beforeUpdate:function(){// 组件数据更新之前
