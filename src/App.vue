@@ -39,7 +39,20 @@ export default {
   },
   watch:{
     $route(to,from){
-      // console.log(to.name);
+      let domArr=document.querySelector('#firstJ').querySelectorAll('.divHand');
+      for(let i=0;i<domArr.length;i++){
+        domArr[i].style.background=''
+      }
+      
+      if(to.name=='evaluatePlanList' || to.name=='evaluateTargetList' || to.name=='evaluateModelList' || to.name=='evaluateClientList'){
+        domArr[0].style.background='rgb(112, 213, 233)';
+      }else if(to.name=='fillEvaluationList'){
+        domArr[1].style.background='rgb(112, 213, 233)';
+      }else if(to.name=='customerSatisfactionList'){
+        domArr[2].style.background='rgb(112, 213, 233)';
+      }else if(to.name=='statisticalPreprocessingList' || to.name=='customerSatisfactionAssessment'){
+        domArr[3].style.background='rgb(112, 213, 233)';
+      }
     }
   }
 }
@@ -54,7 +67,7 @@ body .el-table th.gutter{
 }
 #firstJ{
   margin-right: 20px;
-  background: #66b1ff;
+  background: #409EFF;
   color: #fff;
 }
 .divHand{

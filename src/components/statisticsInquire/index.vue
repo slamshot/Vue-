@@ -48,7 +48,7 @@ export default {
             
             for(let i=0;i<domArr.length;i++){
                 domArr[i].style.borderBottom='';
-                domArr[i].style.color='#66b1ff';
+                domArr[i].style.color='';
             }
             console.log(domArr);
             console.log(to.name);

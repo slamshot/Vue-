@@ -16,8 +16,8 @@
                 </el-col>
                 <el-col :span="5" style="width:290px;">
                     <el-form-item>
-                        <el-select v-model="searchData.evaluKind" placeholder="请选择评价方式" size="small" style="width:250px;" clearable>
-                            <el-option v-for="item in evaluKindOptions" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                        <el-select v-model="searchData.pjfs" placeholder="请选择评价方式" size="small" style="width:250px;" clearable>
+                            <!-- <el-option v-for="item in evaluKindOptions" :key="item.value" :label="item.label" :value="item.value"></el-option> -->
                         </el-select>
                     </el-form-item>
                 </el-col>
