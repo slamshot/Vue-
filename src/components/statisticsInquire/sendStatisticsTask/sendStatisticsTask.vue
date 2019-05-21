@@ -92,7 +92,7 @@ export default {
                 let stateName='';
                 let state = result.data[i].state;
                 if(state =='finish'){
-                    this.data[i].disabled=true;
+                    // this.data[i].disabled=true;
                     stateName='已统计';
                 }else if(state == 'start'){
                     stateName='统计中';
