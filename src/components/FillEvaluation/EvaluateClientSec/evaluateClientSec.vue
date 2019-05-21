@@ -118,6 +118,8 @@ export default {
             for(let i=1;i<this.tableArr.length;i++){
                 data.push(this.tableArr[i])
             }
+            console.log(data);
+            
             for(let i=0;i<data.length;i++){
                 data[i].doneFullName=data[i].depart;
                 data[i].doneUserNo=data[i].depart;
@@ -233,6 +235,7 @@ export default {
             this.title='填写';
             if(this.$route.query.nowState=='save'){
                 evaluateContent(this.$route.query.id).then((result) => {
+                    
                     this.tableTarget=result.data.evaluateTargets;
                     this.tableHead=result.data.doneFullNames.split(',');
                     if(this.$route.query.type==1){                    
@@ -245,6 +248,9 @@ export default {
                                     if(result.data[i]['target'+(j+1)]){
                                         json['target'+(j+1)]=result.data[i]['target'+(j+1)];
                                     }
+                                    if(result.data[i].pkid){
+                                        json.pkid=result.data[i].pkid
+                                    }
                                 }
                                 this.tableArr.push(json)
                             }
@@ -252,6 +258,7 @@ export default {
                         })
                     }else{
                         getFillContent(this.$route.query.EvaluateListPKID).then((result) => {
+                            console.log(result.data);
                             this.tableArr.push({'depart':''})
                             for(let i=0;i<this.tableHead.length;i++){
                                 let json={};
@@ -259,6 +266,9 @@ export default {
                                 for(let j=0;j<this.tableTarget.length;j++){
                                     if(result.data[i]['target'+(j+1)]){
                                         json['target'+(j+1)]=result.data[i]['target'+(j+1)];
+                                    }
+                                    if(result.data[i].pkid){
+                                        json.pkid=result.data[i].pkid
                                     }
                                 }
                                 this.tableArr.push(json)
