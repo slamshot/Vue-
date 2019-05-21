@@ -8,7 +8,7 @@
 <script>
 import ZTable from '../../zTable'
 import SearchPage from './search'
-import {getList,deleted} from './evaluateTarget.js'
+import {getList,deleted,exportTarget} from './evaluateTarget.js'
 import { formatDate } from '@/utils/common.js'
 
 // 路由的名称
@@ -74,7 +74,14 @@ export default {
                         icon:"el-icon-document",
                         style:'background: #70d5e9;border-color: #70d5e9;color: #fff;',
                         click:() => {
-                            
+                            exportTarget().then((res) => {
+                                if(res.status == 200){
+                                    this.$message({
+                                        message: '导出成功',
+                                        type: 'success'
+                                    });
+                                }
+                            });
                         }
                     }
                 ],
