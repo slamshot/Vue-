@@ -126,6 +126,10 @@ export default {
                         // this.formDataDetail = res.data.detail;
                         this.$store.state.data.callback({type:this.type,data:res.data});
                         if(mark == 0){
+                            this.$message({
+                                message: '保存成功',
+                                type: 'success'
+                            });
                             this.close();
                         }else{// 保存并使用
                             this.$store.commit("setData",{data:res.data});
