@@ -296,7 +296,7 @@ export default {
                             headDetail:this.formDataDetail_index,
                             listDetail:newFormDataDetail_evaluate
                         };
-                        this.$store.commit("setData",{data});
+                        this.$store.commit("setData",{data,callback:this.$store.state.data.callback});
                         this.$router.push(
                             {
                                 name:'evaluateClientView',

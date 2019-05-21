@@ -144,8 +144,9 @@ export default {
         viewButtonClick(id,state){
            switch(state){
                 case '暂存':
+                    let that = this;
                     this.$store.commit("setData",{callback:function(){
-                        this.$refs.table.refresh();
+                        that.$refs.table.refresh();
                     }});
                     this.$router.push(
                         {
