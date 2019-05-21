@@ -47,7 +47,7 @@
                             <el-option value="B">B</el-option>
                             <el-option value="C">C</el-option>
                             <el-option value="D">D</el-option>
-                            <el-option value="D">E</el-option>
+                            <el-option value="E">E</el-option>
                         </el-select>
                         <label class="labelBlue" @mouseover="hoverTitle(scope.$index)" v-else>{{ scope.row.targetName }}</label>
                     </template>

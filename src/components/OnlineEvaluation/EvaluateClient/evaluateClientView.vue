@@ -174,7 +174,7 @@ export default {
         handout(){
 
         },
-        async getData(){
+        async dataToview(){
             if(!Object.is(this.type,"add") && !Object.is(this.type,'amodify')){
                 this.id = this.$route.query.id;
                 await get(this.id).then((res) => {
@@ -190,9 +190,7 @@ export default {
                 this.formDataDetail_evaluate = data.listDetail;
                 this.formData.groupName = getLoginInfo('groupName');
             }
-        },
-        dataToview(){
-            console.log(this.formData);
+
             let tableData = [];
             this.formData.inputDate = formatDate(this.formData.inputDate);
             let doFullNames = this.formData.doFullName;
@@ -248,7 +246,6 @@ export default {
         if(Object.is(this.type,'modify')){
             this.type = 'amodify'
         }
-        this.getData();
     },
     mounted:function(){// 组件加载完成
         // DOTO
