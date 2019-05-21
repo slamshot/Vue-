@@ -124,6 +124,9 @@ export default {
                             text:"浏览",
                             icon:"el-icon-view",
                             click:(row) => {
+                                console.log(row);
+                                console.log(row[key]);
+                                
                                 this.viewButtonClick(row[key],row.state);
                             }
                         }

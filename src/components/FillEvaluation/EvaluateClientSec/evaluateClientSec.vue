@@ -47,7 +47,7 @@
                             <el-option value="B">B</el-option>
                             <el-option value="C">C</el-option>
                             <el-option value="D">D</el-option>
-                            <el-option value="D">E</el-option>
+                            <el-option value="E">E</el-option>
                         </el-select>
                         <label class="labelBlue" @mouseover="hoverTitle(scope.$index)" v-else>{{ scope.row.targetName }}</label>
                     </template>
@@ -58,7 +58,7 @@
                 <el-button v-show="!isDisabled" @click="temporaryStorage">暂存</el-button>
                 <el-button type="info" @click="handleClose">关闭</el-button>
             </div>
-            <h5>“A”对应100%，“B”对应85%，“C”对应70%，“D”对应65%，“E”对应50%，</h5>
+            <h5>“A”对应100%，“B”对应85%，“C”对应70%，“D”对应65%，“E”对应50%</h5>
             <footer v-show="description!=''">
                 <div>{{evaluKind}}</div>
                 <div>{{description}}</div>

@@ -53,19 +53,24 @@ export default {
             
             for(let i=0;i<domArr.length;i++){
                 domArr[i].style.borderBottom='';
+                domArr[i].style.color='';
             }
             switch(to.name){
                 case "evaluatePlanList":
                     domArr[0].style.borderBottom='2px solid #66b1ff';
+                    domArr[0].style.color='#66b1ff';
                     break;
                 case "evaluateTargetList":
                     domArr[1].style.borderBottom='2px solid #66b1ff';
+                    domArr[1].style.color='#66b1ff';
                     break;
                 case "evaluateModelList":
                     domArr[2].style.borderBottom='2px solid #66b1ff';
+                    domArr[2].style.color='#66b1ff';
                     break;
                 case "evaluateClientList":
                     domArr[3].style.borderBottom='2px solid #66b1ff';
+                    domArr[3].style.color='#66b1ff';
                     break;
             }
         },
@@ -88,6 +93,7 @@ export default {
         // TODO
         let domArr=document.querySelector('#nbgkmydDiv').querySelectorAll('.nbgkmydDivSon');
         domArr[0].style.borderBottom='2px solid #66b1ff';
+        domArr[0].style.color='#66b1ff';
     },
     beforeUpdate:function(){// 组件数据更新之前
         // TODO

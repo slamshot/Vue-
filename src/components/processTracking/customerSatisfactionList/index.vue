@@ -104,20 +104,25 @@ export default {
                         icon:"el-icon-s-promotion",
                         style:'background: #70d5e9;border-color: #70d5e9;color: #fff;',
                         click:() => {
-                            console.log(this.nowrow);
-                            discard(this.nowrow.id).then((result) => {
-                                if(result.status==200){
-                                    this.$message({
-                                        type: 'success',
-                                        message: '废弃成功!'
-                                    });
-                                    this.$refs.table.refresh();
-                                }else{
-                                    this.$message.error('废弃失败!');
-                                }
-                            }).catch((err) => {
-                                
-                            });
+                            console.log(this.nowrow.id);
+                            if(!this.nowrow.id){
+                                this.$message({
+                                    message: '请单击列表选择所要废弃的条目！',
+                                    type: 'warning'
+                                });
+                            }else{
+                                discard(this.nowrow.id).then((result) => {
+                                    if(result.status==200){
+                                        this.$message({
+                                            type: 'success',
+                                            message: '废弃成功!'
+                                        });
+                                        this.$refs.table.refresh();
+                                    }else{
+                                        this.$message.error('废弃失败!');
+                                    }
+                                })
+                            }
                         }
                     }
                 ],
