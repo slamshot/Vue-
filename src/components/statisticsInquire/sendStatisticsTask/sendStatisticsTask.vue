@@ -3,7 +3,7 @@
         <el-dialog :title="title"
         width="50%" 
         :visible.sync="dialogFormVisible"
-        :before-close="handleClose">
+        :before-close="handleClose" :close-on-click-modal="false">
             <el-transfer :titles="['待选评价表', '已选评价表']" style="margin:0 auto;" v-model="value" :data="data"></el-transfer>
             <div id="btnGroupDiv">
                 <el-button @click="save" type="primary">保存</el-button><el-button @click="handleClose" type="info">取消</el-button>
