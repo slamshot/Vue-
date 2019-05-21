@@ -133,7 +133,7 @@
            </div>
             <div id="toolbar" class="toolbar" slot="footer" v-show="!Object.is(type,'view')">
                <!-- <el-button ref="saveButton" type="primary" @click="saveData">保存</el-button> -->
-               <el-button @click="nextStep" type="primary">下一步</el-button>
+               <el-button @click="nextStep('form')" type="primary">下一步</el-button>
                <el-button @click="close" icon="el-icon-close">取消</el-button>
             </div>
             <select-depart ref="depart" :callback=departDialogCallback></select-depart>
@@ -261,54 +261,56 @@ export default {
             this.deleteDetailData_evaluate.push(Object.assign(row,{doType:"delete"}));
         },
         // 下一步
-        nextStep(){
-            this.$validator.validateAll().then((valid) => {
-                if(valid && this.formDataDetail_group.length>0 && this.formDataDetail_evaluate.length>0){
-                    // 拼接部门
-                    let doneFullNames = '';
-                    this.formDataDetail_group.forEach(({name},index) => {
-                        if(index != 0){
-                            doneFullNames += `,`
-                        }
-                        doneFullNames += `${name}`;
-                    });
-                    // 拼接评价人
-                    let doFullNames = '';
-                    this.formDataDetail_evaluate.forEach(({doFullName},index) => {
-                        if(index != 0){
-                            doFullNames += `,`
-                        }
-                        doFullNames += `${doFullName}`;
-                    });
-                    this.formData = Object.assign(this.formData,{
-                                                                    doFullName:doFullNames,
-                                                                    doUserCount:this.formDataDetail_evaluate.length,
-                                                                    doneFullName:doneFullNames,
-                                                                    doneUserCount:this.formDataDetail_group.length,
-                                                                    targetCount:this.formDataDetail_index.length
-                                                                });
-                    // 合并评价人明细表
-                    let newFormDataDetail_evaluate = [...this.formDataDetail_evaluate,...this.deleteDetailData_evaluate];
-                    console.log(newFormDataDetail_evaluate);
-                    let data = {
-                        main:this.formData,
-                        headDetail:this.formDataDetail_index,
-                        listDetail:newFormDataDetail_evaluate
-                    };
-                    this.$store.commit("setData",{data});
-                    this.$router.push(
-                        {
-                            name:'evaluateClientView',
-                            query:{
-                                useType:this.type,
+        nextStep(formName){
+            this.$refs[formName].validate((valid) => {
+                if(valid){
+                    if(this.formDataDetail_group.length>0 && this.formDataDetail_evaluate.length>0){
+                        // 拼接部门
+                        let doneFullNames = '';
+                        this.formDataDetail_group.forEach(({name},index) => {
+                            if(index != 0){
+                                doneFullNames += `,`
                             }
-                        }
-                    );
-                }else{
-                    this.$message({
-                        message: `被评价部门和被评价人不能为空`,
-                        type: 'warning'
-                    });
+                            doneFullNames += `${name}`;
+                        });
+                        // 拼接评价人
+                        let doFullNames = '';
+                        this.formDataDetail_evaluate.forEach(({doFullName},index) => {
+                            if(index != 0){
+                                doFullNames += `,`
+                            }
+                            doFullNames += `${doFullName}`;
+                        });
+                        this.formData = Object.assign(this.formData,{
+                                                                        doFullName:doFullNames,
+                                                                        doUserCount:this.formDataDetail_evaluate.length,
+                                                                        doneFullName:doneFullNames,
+                                                                        doneUserCount:this.formDataDetail_group.length,
+                                                                        targetCount:this.formDataDetail_index.length
+                                                                    });
+                        // 合并评价人明细表
+                        let newFormDataDetail_evaluate = [...this.formDataDetail_evaluate,...this.deleteDetailData_evaluate];
+                        console.log(newFormDataDetail_evaluate);
+                        let data = {
+                            main:this.formData,
+                            headDetail:this.formDataDetail_index,
+                            listDetail:newFormDataDetail_evaluate
+                        };
+                        this.$store.commit("setData",{data});
+                        this.$router.push(
+                            {
+                                name:'evaluateClientView',
+                                query:{
+                                    useType:this.type,
+                                }
+                            }
+                        );
+                    }else{
+                        this.$message({
+                            message: `被评价部门和被评价人不能为空`,
+                            type: 'warning'
+                        });
+                    }
                 }
             });
             
