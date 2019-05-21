@@ -17,7 +17,7 @@
                     <el-input type="textarea" :rows="4" v-model="formData.description" placeholder="输入指标含义" :disabled="Object.is(type,'view')"></el-input>
                 </el-form-item>
            </el-form>
-           <div id="toolbar" class="toolbar" slot="footer">
+           <div id="toolbar" class="toolbar" slot="footer" v-show="!Object.is(type,'view')">
                <el-button ref="saveButton" type="primary" @click="saveData('form')">保存</el-button>
                <el-button @click="close" icon="el-icon-close">取消</el-button>
            </div>

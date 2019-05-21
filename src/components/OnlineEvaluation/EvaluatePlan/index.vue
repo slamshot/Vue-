@@ -119,11 +119,23 @@ export default {
                         style:'background: #70d5e9;border-color: #70d5e9;color: #fff;',
                         icon:"el-icon-success",
                         click:() => {
-                            complete(this.selectedPkid).then((res) => {
-                                if(res.status == 200){
-                                    this.$refs.table.refresh();
-                                }
-                            });
+                            if(this.selectedPkid != ''){
+                                complete(this.selectedPkid).then((res) => {
+                                    if(res.status == 200){
+                                        this.$message({
+                                            message: '计划完成',
+                                            type: 'success'
+                                        });
+                                        this.$refs.table.refresh();
+                                    }
+                                });
+                            }else{
+                                this.$message({
+                                    message: '请先选择计划',
+                                    type: 'warning'
+                                });
+                            }
+                            
                         }
                     }
                 ],
@@ -161,7 +173,8 @@ export default {
                     ]
                 }
             },
-            selectedPkid:''
+            selectedPkid:'',
+            flag:'',
         }
     },
     methods:{// 自定义方法
@@ -213,7 +226,7 @@ export default {
                 });
             }else{
                 this.$message({
-                    message: '计划已经开始，不能删除计划',
+                    message: `计划已经${planStates[flag]}，不能删除计划`,
                     type: 'warning'
                 });
             }
@@ -228,7 +241,10 @@ export default {
          * currentRow:当前行 oldCurrentRow:上一次选中的行
          */
         rowSelected(currentRow,oldCurrentRow){
-            this.selectedPkid = currentRow[key];
+            if(currentRow){debugger;
+                this.selectedPkid = currentRow[key];
+                this.flag = currentRow.flag;
+            }
         },
         /**
          * 行选中事件:多选时触发

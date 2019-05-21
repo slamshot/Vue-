@@ -117,18 +117,16 @@ export default {
             for(let i=1;i<this.tableArr.length;i++){
                 data.push(this.tableArr[i])
             }
-            
             for(let i=0;i<data.length;i++){
                 data[i].doneFullName=data[i].depart;
                 data[i].doneUserNo=data[i].depart;
                 data[i].evaluateId=this.$route.query.id;
                 data[i].evaluateListPKID=this.$route.query.EvaluateListPKID;
                 data[i].flag=0;
-                data[i].state=1;
-                data[i].inputerUserNo='10002';
+                data[i].submitState=1;
             }
             
-            if(this.$route.type==0){
+            if(this.$route.query.type==0){
                 saveFillContent(data).then((result) => {
                     if(result.status==200){
                         this.$router.back();
@@ -170,10 +168,8 @@ export default {
                 data[i].evaluateId=this.$route.query.id;
                 data[i].evaluateListPKID=this.$route.query.EvaluateListPKID;
                 data[i].flag=0;
-                data[i].state=0;
-                data[i].inputerUserNo='10002';
+                data[i].submitState=0;
             }
-            
             if(this.$route.query.type==0){
                 saveFillContent(data).then((result) => {
                     if(result.status==200){

@@ -22,10 +22,10 @@ export function deletePeople(pkid){
 export function gets(){
     return request({
         url: '/evaluatePlan/gets',
+        data:{
+            filters:JSON.stringify({flag:3})
+        },
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json;charset=UTF-8'
-        }
     })
 }
 

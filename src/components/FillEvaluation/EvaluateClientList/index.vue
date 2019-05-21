@@ -102,6 +102,8 @@ export default {
                             return '待填'
                         }else if(row.State=='finish'){
                             return  '完成'
+                        }else if(row.State=='save'){
+                            return '暂存'
                         }else{
                             return '委托'
                         }

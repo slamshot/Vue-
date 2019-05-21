@@ -66,7 +66,7 @@
 </template>
 <script>
 import { save,get } from './evaluatePlan.js'
-import { getEvaluKind,getLoginInfo } from '../onlineEvaluation.js'
+import { getEvaluKind,getLoginInfo,planStates } from '../onlineEvaluation.js'
 import { formatDate } from '@/utils/common.js'
 import Rules from './validate.js'
 export default {
@@ -99,7 +99,7 @@ export default {
             if(this.formData.flag != 0 && Object.is(this.type,"modify")){
                 this.type = 'view';
                 this.$message({
-                    message: '计划已经开始，不能修改计划',
+                    message: `计划已经${planStates[this.formData.flag]}，不能修改计划`,
                     type: 'warning'
                 });
             }
@@ -117,8 +117,20 @@ export default {
                     data.flag = btnType;
                     save(data).then((res)=>{
                         if(res.status == 200){
-                            this.$store.state.data.callback({type:this.type,data:res.data});
-                            this.close();
+                            if(res.data != ""){
+                                this.$store.state.data.callback({type:this.type,data:res.data});
+                                this.$message({
+                                    message: '保存成功',
+                                    type: 'success'
+                                });
+                                this.close();
+                            }else{
+                                this.$message({
+                                    message: '此类型已有评价计划正在执行',
+                                    type: 'warning'
+                                });
+                            }
+                            
                         }
                     });
                 }

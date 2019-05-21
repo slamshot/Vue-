@@ -24,7 +24,7 @@ export default {
   },
   data:function(){
     return {
-        appHeight:window.innerHeight-67
+        appHeight:window.innerHeight-70
     }
   },
   created(){
