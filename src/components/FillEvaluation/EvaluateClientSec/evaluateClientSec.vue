@@ -125,6 +125,10 @@ export default {
                 data[i].evaluateListPKID=this.$route.query.EvaluateListPKID;
                 data[i].flag=0;
                 data[i].submitState=1;
+                if(this.$route.query.type==1){
+                    data[i].inputerUserNo=this.$route.query.inputerUserNo;
+                    data[i].state='save'
+                }
             }
             
             if(this.$route.query.type==0){
@@ -170,6 +174,10 @@ export default {
                 data[i].evaluateListPKID=this.$route.query.EvaluateListPKID;
                 data[i].flag=0;
                 data[i].submitState=0;
+                if(this.$route.query.type==1){
+                    data[i].inputerUserNo=this.$route.query.inputerUserNo;
+                    data[i].state='finish'
+                }
             }
             if(this.$route.query.type==0){
                 saveFillContent(data).then((result) => {
@@ -218,7 +226,8 @@ export default {
         this.EvaluateTname=this.$route.query.EvaluateTname;
         this.StartDate=this.$route.query.StartDate.substring(0,10);
         this.StartYear=this.$route.query.StartDate.substring(0,4);
-        console.log(this.$route.query.nowState);
+        console.log(this.$route.query.inputerUserNo);
+        console.log(this.$route.query.type);
         
         if(this.$route.query.state == 'add'){
             this.title='填写';

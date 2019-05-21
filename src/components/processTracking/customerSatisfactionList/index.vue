@@ -137,28 +137,35 @@ export default {
                             // disabled:!row.state=='start',
                             click:(row) => {
                                 console.log(row);
-                                this.$confirm('是否删除, 是否继续?', '提示', {
-                                    confirmButtonText: '确定',
-                                    cancelButtonText: '取消',
-                                    type: 'warning'
-                                }).then(() => {
-                                    deleted(row.id).then((result) => {
-                                        if(result.status==200){
-                                            this.$message({
-                                                type: 'success',
-                                                message: '删除成功!'
-                                            });
-                                            this.$refs.table.refresh();
-                                        }else{
-                                            this.$message.error('删除失败!');
-                                        }
-                                    })
-                                }).catch(() => {
+                                if(row.state!='完成'){
+                                    this.$confirm('是否删除, 是否继续?', '提示', {
+                                        confirmButtonText: '确定',
+                                        cancelButtonText: '取消',
+                                        type: 'warning'
+                                    }).then(() => {
+                                        deleted(row.id).then((result) => {
+                                            if(result.status==200){
+                                                this.$message({
+                                                    type: 'success',
+                                                    message: '删除成功!'
+                                                });
+                                                this.$refs.table.refresh();
+                                            }else{
+                                                this.$message.error('删除失败!');
+                                            }
+                                        })
+                                    }).catch(() => {
+                                        this.$message({
+                                            type: 'info',
+                                            message: '已取消删除'
+                                        });          
+                                    });
+                                }else{
                                     this.$message({
-                                        type: 'info',
-                                        message: '已取消删除'
-                                    });          
-                                });
+                                        message: '已完成，不可删除!',
+                                        type: 'warning'
+                                    });
+                                }
                             }
                         },
                         {

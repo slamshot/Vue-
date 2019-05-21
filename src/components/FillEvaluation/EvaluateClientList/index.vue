@@ -145,6 +145,7 @@ export default {
                                                 id:row.EvaluateId,
                                                 EvaluateListPKID:row.EvaluateListPKID,
                                                 type:row.type,
+                                                inputerUserNo:this.$route.query.doUserNo
                                             }
                                         }
                                     ); 

@@ -102,47 +102,54 @@ export default {
         // 删除评价人
         handleDelete(index,row){
             console.log(row);
-            this.$confirm('是否删除, 是否继续?', '提示', {
-                confirmButtonText: '确定',
-                cancelButtonText: '取消',
-                type: 'warning'
-            }).then(() => {
-                deletePeople(row.pkid).then((result) => {
-                    this.$message({
-                        type: 'success',
-                        message: '删除成功!'
-                    });
-                    clientList(this.$route.query.id).then((result) => {
-                        this.tableData=result.data
-                        for(let i=0;i<this.tableData.length;i++){
-                            this.tableData[i].inputDate=this.tableData[i].inputDate.substring(0,10);
-                            switch (this.tableData[i].state){
-                                case 'finish':
-                                    this.tableData[i].state='完成';
-                                    break;
-                                case 'save':
-                                    this.tableData[i].state='暂存';
-                                    break;
-                                case 'start':
-                                    this.tableData[i].state='待填';
-                                    break;
-                                case 'consign':
-                                    this.tableData[i].state='委托';
-                                    break;
+            if(row.state!='完成'){
+                this.$confirm('是否删除, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    deletePeople(row.pkid).then((result) => {
+                        this.$message({
+                            type: 'success',
+                            message: '删除成功!'
+                        });
+                        clientList(this.$route.query.id).then((result) => {
+                            this.tableData=result.data
+                            for(let i=0;i<this.tableData.length;i++){
+                                this.tableData[i].inputDate=this.tableData[i].inputDate.substring(0,10);
+                                switch (this.tableData[i].state){
+                                    case 'finish':
+                                        this.tableData[i].state='完成';
+                                        break;
+                                    case 'save':
+                                        this.tableData[i].state='暂存';
+                                        break;
+                                    case 'start':
+                                        this.tableData[i].state='待填';
+                                        break;
+                                    case 'consign':
+                                        this.tableData[i].state='委托';
+                                        break;
+                                }
                             }
-                        }
+                        }).catch((err) => {
+                            
+                        });
                     }).catch((err) => {
                         
                     });
-                }).catch((err) => {
-                    
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });          
                 });
-            }).catch(() => {
+            }else{
                 this.$message({
-                    type: 'info',
-                    message: '已取消删除'
-                });          
-            });
+                    message: '已完成，不可删除!',
+                    type: 'warning'
+                });
+            }
         },
         // 催办
         handleCb(index,row){
