@@ -3,7 +3,7 @@
         <el-dialog :title="title"
         width="60%" 
         :visible.sync="dialogFormVisible"
-        :before-close="handleClose">
+        :before-close="handleClose" :close-on-click-modal="false">
             <h4>在线评价——{{modelName}}</h4>
             <div class="pDiv"><span>评价类别：{{evaluKind}}</span>    <span>模板名称：{{modelName}}</span></div>
             <div class="pDiv"><span>评价表名：{{evaluateTname}}</span>  <span>制表部门：{{groupName}}</span>   <span>制表时间：{{inputDate}}</span>   <span>催办提前期：{{emailDay}}天</span></div>

@@ -1,6 +1,6 @@
 <template>
     <div id="evaluateClientView">
-        <el-dialog :title="formData.planName" :visible=true @close="close" :width="dialogWidth">
+        <el-dialog :title="formData.planName" :visible=true @close="close" :width="dialogWidth" :close-on-click-modal="false">
             <el-form ref="form" :model="formData" label-width="100px">
                 <el-row>
                     <el-col :span="8">

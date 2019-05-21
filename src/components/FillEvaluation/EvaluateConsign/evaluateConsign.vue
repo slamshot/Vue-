@@ -2,7 +2,7 @@
     <div id="evaluateConsign">
         <el-dialog title="测评委托" 
         :visible.sync="dialogFormVisible"
-        :before-close="handleClose">
+        :before-close="handleClose" :close-on-click-modal="false">
             <h4>{{PlanName}}委托</h4>
             <el-input
                 @focus="iptFocus"

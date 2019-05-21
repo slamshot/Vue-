@@ -2,7 +2,7 @@
     <div id="evaluateClientSec">
         <el-dialog width='60%' :title="title" 
         :visible.sync="dialogFormVisible"
-        :before-close="handleClose">
+        :before-close="handleClose" :close-on-click-modal="false">
             <h4>{{StartYear}}——{{nowUserName}}</h4>
             <div class="blockDiv">
                 <div>
