@@ -345,7 +345,10 @@ export default {
                     if(res.data != ""){
                         let {pkid:planPKID,evaluPlan:planName,evaluKind,emailDay} = res.data;
                         // let {targetPKID,targetName,TargetWeight} = data.detail;
-                        this.formDataDetail_index = data.detail;
+                        data.detail.forEach(({targetPKID,targetName,targetWeight}) => {
+                            this.formDataDetail_index.push({targetPKID,targetName,targetWeight,doType:'add'});
+                        });
+                        // this.formDataDetail_index = data.detail;
                         let {pkid:modelPKID,modelName} = data.main;
                         this.formData = Object.assign({modelPKID,modelName},{planPKID,planName,evaluKind,emailDay});
                     }else{

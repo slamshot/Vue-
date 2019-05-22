@@ -301,7 +301,7 @@ export default {
                     this.srcUrl=`${reportBaseUrl}reportlet=vue%2FSingleTargetTable.cpt&evaluateIds=${evaluateIdsStr}&targetIndex${this.specificTarget}`
                     break;
                 case '4':
-                    this.srcUrl=`${reportBaseUrl}reportlet=vue%2FChart.cpt&taskIds${taskId}`
+                    this.srcUrl=`${reportBaseUrl}reportlet=vue%2FChart.cpt&taskIds=${taskId}`
                     break;
             }
             console.log(this.srcUrl);
