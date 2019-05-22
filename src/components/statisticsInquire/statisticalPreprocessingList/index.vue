@@ -218,7 +218,6 @@ export default {
         }
     },
     created:function(){// 组件创建后
-       console.log(111111111);
     },
     mounted:function(){// 组件加载完成
         // DOTO

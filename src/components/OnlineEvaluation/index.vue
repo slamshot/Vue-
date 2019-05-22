@@ -48,7 +48,7 @@ export default {
     },
     watch:{
         $route(to,from){
-            console.log(to.name);
+            // console.log(to.name);
             let domArr=document.querySelector('#nbgkmydDiv').querySelectorAll('.nbgkmydDivSon');
             
             for(let i=0;i<domArr.length;i++){

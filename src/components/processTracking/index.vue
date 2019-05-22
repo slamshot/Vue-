@@ -49,8 +49,8 @@ export default {
                 domArr[i].style.borderBottom='';
                 domArr[i].style.color='';
             }
-            console.log(domArr);
-            console.log(to.name);
+            // console.log(domArr);
+            // console.log(to.name);
             
             switch(to.name){
                 case "customerSatisfactionList":

@@ -241,7 +241,7 @@ export default {
          * currentRow:当前行 oldCurrentRow:上一次选中的行
          */
         rowSelected(currentRow,oldCurrentRow){
-            if(currentRow){debugger;
+            if(currentRow){
                 this.selectedPkid = currentRow[key];
                 this.flag = currentRow.flag;
             }
