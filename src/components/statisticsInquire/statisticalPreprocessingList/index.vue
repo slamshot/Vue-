@@ -42,7 +42,7 @@ export default {
                 opertionColumnWidth:62,
                 tableHeight:'calc(100% - 120px)',
                 // 默认排序
-                currentSort:[{prop: 'evaluateTname', order: 'descending'}]
+                currentSort:[{prop: 'taskInputDate', order: 'descending'},{prop: 'evaluateTname', order: 'descending'}]
             },
             // 列表配置
             tableColumnConfig:[

@@ -147,6 +147,13 @@ export default {
                     }
                 });
             }
+            // 弹出错误信息
+            if(!valid1){
+                this.$message({
+                    message: "权重不能为空",
+                    type: 'error'
+                });
+            }
         },
         getData(){
             get(this.id).then((res) => {

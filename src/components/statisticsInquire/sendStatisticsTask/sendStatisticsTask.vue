@@ -48,13 +48,14 @@ export default {
             let saveData={};
             saveData.evaluateId=this.value.join(',');
             for(let i=0;i<this.value.length;i++){
-                if(this.data[i].id==this.value[i]){
+                if(this.data[i].key==this.value[i]){
                     saveData.planPKID=this.data[i].planPKID;
-                    saveData.evaluKind=this.data[i].evaluKind;
-                    saveData.evaluateTname=this.data[i].evaluateTname;
+                    saveData.evaluKind=this.data[i].EvaluKind;
+                    saveData.evaluateTname=this.data[i].EvaluateTname;
                     break;
                 }
             }
+            console.log(saveData);
             
             send(saveData).then((result) => {
                 if(result.status == 200){

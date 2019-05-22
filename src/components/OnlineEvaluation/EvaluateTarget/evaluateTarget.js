@@ -51,3 +51,10 @@ export function getEvaluateTargetByEvaluKind(evaluKind){
     })
 }
 
+export function exportTarget(){
+    return request({
+        url: '/evaluateTarget/exportTarget',
+        method: 'GET'
+    })
+}
+

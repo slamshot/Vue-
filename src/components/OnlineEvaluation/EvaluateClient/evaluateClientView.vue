@@ -103,7 +103,7 @@ export default {
             tableBaseConfig:{
                 showOperation:false,
                 showPageBar:false,
-                tableHeight:'200px'
+                tableHeight:'300px'
             },
             // 列表配置
             tableColumnConfig:[
