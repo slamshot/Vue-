@@ -87,6 +87,6 @@ export default {
     margin-bottom: 10px;
 }
 #searchFrom{
-    padding-right: 10%;
+    padding-right: 18%;
 }
 </style>
