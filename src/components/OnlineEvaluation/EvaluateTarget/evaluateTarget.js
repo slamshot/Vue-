@@ -52,9 +52,10 @@ export function getEvaluateTargetByEvaluKind(evaluKind){
 }
 
 export function exportTarget(){
-    return request({
-        url: '/evaluateTarget/exportTarget',
-        method: 'GET'
-    })
+    // return request({
+    //     url: '/evaluateTarget/exportTarget',
+    //     method: 'GET'
+    // })
+    window.open('http://10.214.92.37:7576/evaluateTarget/exportTarget','_self')
 }
 
