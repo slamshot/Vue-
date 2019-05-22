@@ -76,6 +76,8 @@
 <script>
 import {gets,getByYear,getByEvaluKind,exportExcel} from './customerSatisfactionAssessment.js'
 import {getLoginInfo} from '../../OnlineEvaluation/onlineEvaluation.js'
+
+const reportBaseUrl = 'http://10.214.92.37:8075/WebReport/ReportServer?'
 export default {
     name:'customerSatisfactionAssessment',
     props:{// 其他组件传入的值
@@ -290,16 +292,16 @@ export default {
 
             switch (this.exportedDataFormat){
                 case '1':
-                    this.srcUrl='http://10.214.93.90:8075/WebReport/ReportServer?reportlet=vue%2FBasicData.cpt&__bypagesize__=false&evaluateIds='+evaluateIdsStr
+                    this.srcUrl=`${reportBaseUrl}reportlet=vue%2FBasicData.cpt&__bypagesize__=false&evaluateIds=${evaluateIdsStr}`
                     break;
                 case '2':
-                    this.srcUrl='http://10.214.93.90:8075/WebReport/ReportServer?reportlet=vue%2FTotalScoreTable.cpt&evaluateIds='+evaluateIdsStr
+                    this.srcUrl=`${reportBaseUrl}reportlet=vue%2FTotalScoreTable.cpt&evaluateIds=`+evaluateIdsStr
                     break;
                 case '3':
-                    this.srcUrl='http://10.214.93.90:8075/WebReport/ReportServer?reportlet=vue%2FSingleTargetTable.cpt&evaluateIds='+evaluateIdsStr+'&targetIndex='+this.specificTarget
+                    this.srcUrl=`${reportBaseUrl}reportlet=vue%2FSingleTargetTable.cpt&evaluateIds=${evaluateIdsStr}&targetIndex${this.specificTarget}`
                     break;
                 case '4':
-                    this.srcUrl='http://10.214.93.90:8075/WebReport/ReportServer?reportlet=vue%2FChart.cpt&taskIds='+taskId
+                    this.srcUrl=`${reportBaseUrl}reportlet=vue%2FChart.cpt&taskIds${taskId}`
                     break;
             }
             console.log(this.srcUrl);
