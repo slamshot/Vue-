@@ -56,19 +56,25 @@ export default {
                 }
             }
             console.log(saveData);
-            
-            send(saveData).then((result) => {
-                if(result.status == 200){
-                    this.$message({
-                        type: 'success',
-                        message: '保存成功!'
-                    });
-                    this.$router.back();
-                    this.$store.state.data.callback();
-                }else{
-                    this.$message.error('保存失败!');
-                }
-            })
+            if(saveData.evaluateId==''){
+                this.$message({
+                    message: '请选择评价表！',
+                    type: 'warning'
+                });
+            }else{
+                send(saveData).then((result) => {
+                    if(result.status == 200){
+                        this.$message({
+                            type: 'success',
+                            message: '保存成功!'
+                        });
+                        this.$router.back();
+                        this.$store.state.data.callback();
+                    }else{
+                        this.$message.error('保存失败!');
+                    }
+                })
+            }
         }
     },
     /**
