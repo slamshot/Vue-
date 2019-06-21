@@ -92,6 +92,17 @@ export default {
                     align:"center",
                     width:60,
                     sortable:true,
+                    formatter:function(row,column){
+                        let state = row.state
+                        if(state == 'discard'){
+                          state = '废弃'
+                        }else if(state == 'start'){
+                          state = '分发'
+                        }else if(state == 'finish'){
+                          state = '完成'
+                        }
+                        return state;
+                    }
                 },
             ],
             // 工具栏配置
@@ -232,7 +243,7 @@ export default {
         },
         // 请求列表数据之前
         beforeGetListData(currentPage,pageSize,order,filters){
-            filters.state = '分发,完成,废弃';
+            filters.state = 'start,finish,discard';
         }
     },
     /**

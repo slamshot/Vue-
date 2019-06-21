@@ -99,7 +99,18 @@ export default {
                     text:"状态",
                     align:"center",
                     width:60,
-                    sortable:true
+                    sortable:true,
+                    formatter:function(row,column){
+                        let state = row.state
+                        if(state == 'save'){
+                          state = '暂存'
+                        }else if(state == 'start'){
+                          state = '分发'
+                        }else if(state == 'finish'){
+                          state = '完成'
+                        }
+                        return state;
+                    }
                 }
             ],
             // 工具栏配置
@@ -223,7 +234,7 @@ export default {
         },
         // 请求列表数据之前
         beforeGetListData(currentPage,pageSize,order,filters){
-            filters.state = '暂存,分发,完成';
+            filters.state = 'save,start,finish';
         }
     },
     /**
